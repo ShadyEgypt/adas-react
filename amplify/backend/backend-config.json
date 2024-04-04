@@ -1,0 +1,144 @@
+{
+  "auth": {
+    "adasreact1716817517168175": {
+      "customAuth": false,
+      "dependsOn": [
+        {
+          "attributes": [
+            "Arn",
+            "Name"
+          ],
+          "category": "function",
+          "resourceName": "adasreact1716817517168175PostConfirmation",
+          "triggerProvider": "Cognito"
+        }
+      ],
+      "frontendAuthConfig": {
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyCharacters": [
+            "REQUIRES_LOWERCASE",
+            "REQUIRES_UPPERCASE",
+            "REQUIRES_NUMBERS"
+          ],
+          "passwordPolicyMinLength": "8"
+        },
+        "signupAttributes": [
+          "EMAIL",
+          "PREFERRED_USERNAME"
+        ],
+        "socialProviders": [],
+        "usernameAttributes": [],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito"
+    },
+    "userPoolGroups": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "UserPoolId",
+            "AppClientIDWeb",
+            "AppClientID",
+            "IdentityPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "adasreact1716817517168175"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito-UserPool-Groups"
+    }
+  },
+  "function": {
+    "adasreact1716817517168175PostConfirmation": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "adasreacte7669d4de7669d4dPostConfirmation": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "hosting": {
+    "amplifyhosting": {
+      "providerPlugin": "awscloudformation",
+      "service": "amplifyhosting",
+      "type": "manual"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_adasreact1716817517168175PostConfirmation_GROUP": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "adasreact1716817517168175PostConfirmation"
+        }
+      ]
+    },
+    "AMPLIFY_function_adasreact1716817517168175PostConfirmation_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "adasreact1716817517168175PostConfirmation"
+        }
+      ]
+    },
+    "AMPLIFY_function_adasreact1716817517168175PostConfirmation_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "adasreact1716817517168175PostConfirmation"
+        }
+      ]
+    },
+    "AMPLIFY_function_adasreacte7669d4de7669d4dPostConfirmation_GROUP": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "adasreacte7669d4de7669d4dPostConfirmation"
+        }
+      ]
+    },
+    "AMPLIFY_function_adasreacte7669d4de7669d4dPostConfirmation_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "adasreacte7669d4de7669d4dPostConfirmation"
+        }
+      ]
+    },
+    "AMPLIFY_function_adasreacte7669d4de7669d4dPostConfirmation_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "adasreacte7669d4de7669d4dPostConfirmation"
+        }
+      ]
+    },
+    "AMPLIFY_hosting_amplifyhosting_appId": {
+      "usedBy": [
+        {
+          "category": "hosting",
+          "resourceName": "amplifyhosting"
+        }
+      ]
+    },
+    "AMPLIFY_hosting_amplifyhosting_type": {
+      "usedBy": [
+        {
+          "category": "hosting",
+          "resourceName": "amplifyhosting"
+        }
+      ]
+    }
+  }
+}

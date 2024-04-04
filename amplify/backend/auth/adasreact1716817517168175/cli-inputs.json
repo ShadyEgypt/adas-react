@@ -1,0 +1,64 @@
+{
+  "version": "1",
+  "cognitoConfig": {
+    "identityPoolName": "adasreact17168175_identitypool_17168175",
+    "allowUnauthenticatedIdentities": false,
+    "resourceNameTruncated": "adasre17168175",
+    "userPoolName": "adasreact17168175_userpool_17168175",
+    "autoVerifiedAttributes": [
+      "email"
+    ],
+    "mfaConfiguration": "OFF",
+    "mfaTypes": [
+      "SMS Text Message"
+    ],
+    "smsAuthenticationMessage": "Your authentication code is {####}",
+    "smsVerificationMessage": "Your verification code is {####}",
+    "emailVerificationSubject": "(Electro Mobility verification code)",
+    "emailVerificationMessage": "Your verification code is {####}",
+    "defaultPasswordPolicy": true,
+    "passwordPolicyMinLength": "8",
+    "passwordPolicyCharacters": [
+      "Requires Lowercase",
+      "Requires Uppercase",
+      "Requires Numbers"
+    ],
+    "requiredAttributes": [
+      "email",
+      "preferred_username"
+    ],
+    "aliasAttributes": [],
+    "userpoolClientGenerateSecret": false,
+    "userpoolClientRefreshTokenValidity": "1",
+    "userpoolClientWriteAttributes": [
+      "email",
+      "preferred_username"
+    ],
+    "userpoolClientReadAttributes": [
+      "email",
+      "preferred_username"
+    ],
+    "userpoolClientLambdaRole": "adasre17168175_userpoolclient_lambda_role",
+    "userpoolClientSetAttributes": true,
+    "sharedId": "17168175",
+    "resourceName": "adasreact1716817517168175",
+    "authSelections": "identityPoolAndUserPool",
+    "useDefault": "manual",
+    "thirdPartyAuth": false,
+    "userPoolGroups": true,
+    "adminQueries": false,
+    "triggers": {
+      "PostConfirmation": [
+        "add-to-group"
+      ]
+    },
+    "hostedUI": false,
+    "userPoolGroupList": [
+      "admin",
+      "visitor"
+    ],
+    "serviceName": "Cognito",
+    "usernameCaseSensitive": false,
+    "useEnabledMfas": true
+  }
+}
