@@ -1,0 +1,32 @@
+.signUpRoot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  min-width: 20rem;
+  margin: auto;
+  .titleSignUp {
+    font-size: 36px;
+    font-weight: bold;
+    color: gray;
+    margin: 10px;
+  }
+}
+
+.signUpText {
+  color: gray;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  max-width: 320px;
+}
+
+.signUpLink {
+  color: #fdb075;
+  cursor: pointer;
+}
+
+.signUpLogo {
+  width: 50%;
+  max-width: 200px;
+  max-height: 200px;
+}

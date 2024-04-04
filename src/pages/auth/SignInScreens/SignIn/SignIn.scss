@@ -1,0 +1,15 @@
+.signInRoot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  min-width: 20rem;
+  width: auto;
+  margin: auto;
+  .titleSignIn {
+    font-size: 36px;
+    font-weight: bold;
+    color: gray;
+    margin: 10px;
+  }
+}

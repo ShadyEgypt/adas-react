@@ -1,0 +1,26 @@
+.customInputContainer {
+  background-color: white;
+  width: 100%;
+  max-width: 320px;
+  padding: 5px;
+  border-color: #e8e8e8;
+  border-width: 1px;
+  border-radius: 5px;
+  border-style: solid;
+  margin-bottom: 5px; /* Replaces marginVertical */
+}
+
+.customInputContainer.error {
+  border-color: red;
+}
+
+.customInput {
+  width: 100%;
+  max-width: 290px;
+  padding: 10px;
+}
+
+.errorText {
+  color: red;
+  display: block; /* To ensure it takes the full width like 'alignSelf: stretch' */
+}

@@ -1,0 +1,30 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  width: 20rem; 
+  margin: auto; 
+}
+
+.title {
+    font-size: 24;
+    font-weight: bold;
+    color: #051C60;
+    margin: 10;
+}
+
+.text {
+    color: 'gray';
+    margin-top: 10px,
+}
+
+.link {
+    color: #FDB075;
+}
+
+.signInLogo {
+  width: 50%;
+  max-width: 200px;
+  max-height: 200px;
+}

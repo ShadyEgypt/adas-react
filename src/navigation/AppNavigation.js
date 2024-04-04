@@ -1,0 +1,110 @@
+import React from "react";
+import { useContext, useState, useEffect } from "react";
+import {
+  Routes,
+  Route,
+  Navigate,
+  BrowserRouter,
+  useNavigate,
+} from "react-router-dom";
+import { AuthProvider, AuthContext } from "../context/auth-context";
+import { Auth } from "aws-amplify";
+import { UsersAPI } from "../api/users";
+import NavBar from "../components/NavBar";
+
+//Auth pages
+import SignUpScreens from "../pages/auth/SignUpScreens";
+import SignInScreens from "../pages/auth/SignInScreens";
+
+//App pages
+import Home from "../pages/home/Home";
+
+function AppNav() {
+  const navigate = useNavigate();
+  const context = useContext(AuthContext);
+  const { isLoggedIn, setContextState } = context;
+  const [isLoggedInState, setIsLoggedInState] = useState(false);
+  useEffect(() => {
+    const checkAuthState = async () => {
+      try {
+        const resCognito = await Auth.currentAuthenticatedUser();
+        console.log(resCognito);
+
+        const resMongo = await UsersAPI.getUser(resCognito.attributes.sub);
+        console.log(resMongo);
+        const { name, username, id } = resMongo;
+
+        setContextState({
+          isLoggedIn: true,
+          mongoId: id,
+          cognitoId: resCognito.attributes.sub,
+          name: name,
+          username: username,
+        });
+        setIsLoggedInState(true);
+        return true;
+      } catch (error) {
+        console.log("Oops", error.message);
+        setContextState({
+          isLoggedIn: false,
+        });
+        setIsLoggedInState(false);
+        return false;
+      }
+    };
+    const fetchData = async () => {
+      const res = await checkAuthState();
+      console.log(res);
+
+      if (res) {
+        navigate("/home", { replace: true });
+      } else {
+        navigate("/signin", { replace: true });
+      }
+    };
+
+    fetchData();
+    console.log(isLoggedInState);
+  }, []);
+  return (
+    <>
+      <NavBar isLoggedInState={isLoggedInState} />
+
+      <Routes>
+        {/* public routes */}
+        <Route
+          path="/signin"
+          element={
+            isLoggedInState === undefined || isLoggedInState === false ? (
+              <SignInScreens />
+            ) : (
+              <Navigate to="/home" replace />
+            )
+          }
+        />
+        <Route
+          path="/signup"
+          element={
+            !isLoggedInState ? (
+              <SignUpScreens />
+            ) : (
+              <Navigate to="/home" replace />
+            )
+          }
+        />
+        <Route
+          path="/home"
+          element={
+            isLoggedInState !== undefined && isLoggedInState === true ? (
+              <Home />
+            ) : (
+              <Navigate to="/signin" replace />
+            )
+          }
+        />
+      </Routes>
+    </>
+  );
+}
+
+export default AppNav;
