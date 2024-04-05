@@ -1,0 +1,35 @@
+.folder-component {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 4px;
+
+  .folder-icon {
+    color: #ffa726;
+  }
+
+  .folder-text {
+    margin-left: 5px;
+    color: black;
+  }
+
+  &:hover {
+    background-color: darken(#f0f0f0, 10%);
+  }
+
+  &.selected {
+    .folder-text {
+      color: rgb(50, 50, 186);
+    }
+  }
+}
+
+@mixin transition-color {
+  transition: color 0.3s ease;
+}
+
+.folder-icon,
+.folder-text {
+  @include transition-color;
+}

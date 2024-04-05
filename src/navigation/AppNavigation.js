@@ -1,16 +1,11 @@
 import React from "react";
 import { useContext, useState, useEffect } from "react";
-import {
-  Routes,
-  Route,
-  Navigate,
-  BrowserRouter,
-  useNavigate,
-} from "react-router-dom";
-import { AuthProvider, AuthContext } from "../context/auth-context";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/auth-context";
 import { Auth } from "aws-amplify";
 import { UsersAPI } from "../api/users";
 import NavBar from "../components/NavBar";
+import SideBar from "../components/SideBar";
 
 //Auth pages
 import SignUpScreens from "../pages/auth/SignUpScreens";
@@ -18,6 +13,9 @@ import SignInScreens from "../pages/auth/SignInScreens";
 
 //App pages
 import Home from "../pages/home/Home";
+import BddStorage from "../pages/storage/bdd-storage/BddStorage";
+import UserStorage from "../pages/storage/user-storage/UserStorage";
+import ModelsScreens from "../pages/models/index";
 
 function AppNav() {
   const navigate = useNavigate();
@@ -69,40 +67,76 @@ function AppNav() {
   return (
     <>
       <NavBar isLoggedInState={isLoggedInState} />
+      <div className="container-sidebar">
+        <SideBar />
+      </div>
+      <div className="container-component">
+        <Routes>
+          {/* public routes */}
+          <Route
+            path="/signin"
+            element={
+              isLoggedInState === undefined || isLoggedInState === false ? (
+                <SignInScreens />
+              ) : (
+                <Navigate to="/home" replace />
+              )
+            }
+          />
+          <Route
+            path="/signup"
+            element={
+              !isLoggedInState ? (
+                <SignUpScreens />
+              ) : (
+                <Navigate to="/home" replace />
+              )
+            }
+          />
+          {/* protected routes */}
+          <Route
+            path="/home"
+            element={
+              isLoggedInState !== undefined && isLoggedInState === true ? (
+                <Home />
+              ) : (
+                <Navigate to="/signin" replace />
+              )
+            }
+          />
 
-      <Routes>
-        {/* public routes */}
-        <Route
-          path="/signin"
-          element={
-            isLoggedInState === undefined || isLoggedInState === false ? (
-              <SignInScreens />
-            ) : (
-              <Navigate to="/home" replace />
-            )
-          }
-        />
-        <Route
-          path="/signup"
-          element={
-            !isLoggedInState ? (
-              <SignUpScreens />
-            ) : (
-              <Navigate to="/home" replace />
-            )
-          }
-        />
-        <Route
-          path="/home"
-          element={
-            isLoggedInState !== undefined && isLoggedInState === true ? (
-              <Home />
-            ) : (
-              <Navigate to="/signin" replace />
-            )
-          }
-        />
-      </Routes>
+          <Route
+            path="/models"
+            element={
+              isLoggedInState !== undefined && isLoggedInState === true ? (
+                <ModelsScreens />
+              ) : (
+                <Navigate to="/signin" replace />
+              )
+            }
+          />
+          <Route
+            path="/bdd-data"
+            element={
+              isLoggedInState !== undefined && isLoggedInState === true ? (
+                <BddStorage />
+              ) : (
+                <Navigate to="/signin" replace />
+              )
+            }
+          />
+          <Route
+            path="/user-data"
+            element={
+              isLoggedInState !== undefined && isLoggedInState === true ? (
+                <UserStorage />
+              ) : (
+                <Navigate to="/signin" replace />
+              )
+            }
+          />
+        </Routes>
+      </div>
     </>
   );
 }

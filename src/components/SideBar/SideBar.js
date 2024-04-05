@@ -15,35 +15,18 @@ const Sidebar = () => {
       <div className="top"></div>
       <div className="center">
         <ul>
-          <p className="list-title">MODELS</p>
           <Link to="/home" style={{ textDecoration: "none" }}>
             <li>
               <DashboardIcon className="icon" />
               <span>Dashboard</span>
             </li>
           </Link>
-          <Link to="/yolov2" style={{ textDecoration: "none" }}>
+          <p className="list-title">MODELS</p>
+
+          <Link to="/models" style={{ textDecoration: "none" }}>
             <li>
               <CodeIcon className="icon" />
-              <span>YOLO v2</span>
-            </li>
-          </Link>
-          <Link to="/yolov8" style={{ textDecoration: "none" }}>
-            <li>
-              <CodeIcon className="icon" />
-              <span>YOLO v8</span>
-            </li>
-          </Link>
-          <Link to="/openzoo" style={{ textDecoration: "none" }}>
-            <li>
-              <CodeIcon className="icon" />
-              <span>Open Zoo optimized</span>
-            </li>
-          </Link>
-          <Link to="/yolov8-accelrated" style={{ textDecoration: "none" }}>
-            <li>
-              <CodeIcon className="icon" />
-              <span>YOLO v8 optimized</span>
+              <span>Test models</span>
             </li>
           </Link>
           <p className="list-title">DATA</p>

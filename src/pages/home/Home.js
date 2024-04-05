@@ -1,6 +1,5 @@
 import React, { Component, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import SideBar from "../../components/SideBar";
 import { AuthContext } from "../../context/auth-context";
 import "./home.scss";
 import { uFilesAPI } from "../../api/ufiles";
@@ -18,13 +17,8 @@ const Home = () => {
 
   return (
     <>
-      <div className="container-sidebar">
-        <SideBar />
-      </div>
-      <div className="container-component">
-        <div className="container-home">
-          <h1>Hi Shady!</h1>
-        </div>
+      <div className="container-home">
+        <h1>Hi Shady!</h1>
       </div>
     </>
   );

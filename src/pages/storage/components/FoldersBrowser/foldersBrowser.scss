@@ -1,0 +1,50 @@
+.con-browser-nav {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  .con-column {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 10px;
+    .con-row {
+      display: flex;
+      flex-direction: row;
+      overflow-y: auto;
+      height: fit-content;
+      max-height: 95%;
+      .files {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+      .con-spacer-horizontal {
+        display: flex;
+      }
+      .selected {
+        background-color: darken(#f0f0f0, 10%);
+      }
+    }
+    .con-spacer-vertical {
+      display: flex;
+    }
+  }
+  .pagination {
+    margin: 5px;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+  }
+}
+.empty {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  .folder-open {
+    width: 100px;
+    height: 100px;
+  }
+}

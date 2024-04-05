@@ -1,0 +1,41 @@
+.element-component {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 4px;
+  width: 100px;
+  height: 80px;
+  justify-content: center;
+  .image-icon,
+  .video-icon,
+  .folder-icon {
+    color: #ffa726;
+  }
+
+  .element-text {
+    margin-left: 5px;
+    color: black;
+  }
+
+  &:hover {
+    background-color: darken(#f0f0f0, 10%);
+  }
+
+  &.selected {
+    .folder-text {
+      color: rgb(50, 50, 186);
+    }
+  }
+}
+
+@mixin transition-color {
+  transition: color 0.3s ease;
+}
+
+.video-icon,
+.image-icon,
+.icon-text {
+  @include transition-color;
+}
