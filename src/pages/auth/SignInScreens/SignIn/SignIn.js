@@ -4,13 +4,11 @@ import Logo from "../../../../components/Logo/Logo";
 import CustomInput from "../../../../components/CustomInput";
 import CustomButton from "../../../../components/CustomButton";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 import { Auth } from "aws-amplify";
 import { AuthContext } from "../../../../context/auth-context";
-// import { UsersAPI } from "../../../api/users";
+import { UsersAPI } from "../../../../api/users";
 const SignInScreen = ({ changeScreen }) => {
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
   const context = useContext(AuthContext);
 
   const {
@@ -32,29 +30,29 @@ const SignInScreen = ({ changeScreen }) => {
       console.log(signInOutput);
       if (signInOutput.attributes.sub !== null) {
         try {
-          // const res = await UsersAPI.getUser(signInOutput.attributes.sub);
-          // const { name, username, id } = res.data.userByCognito;
-          // console.log(name, username, id);
-          context.setContextState((prevState) => ({
-            ...prevState,
+          const res = await UsersAPI.getUser(signInOutput.attributes.sub);
+          console.log(res);
+          const { name, username, id } = res;
+          console.log(name, username, id);
+
+          context.setContextState({
             isLoggedIn: true,
-          }));
-          navigate("/home", { replace: true });
-          // context.setContextState({
-          //   isLoggedIn: true,
-          // mongoId: id,
-          // userId: signInOutput.attributes.sub,
-          // name: name,
-          // username: username,
-          // });
+            mongoId: id,
+            userId: signInOutput.attributes.sub,
+            name: name,
+            username: username,
+          });
+          changeScreen("home");
         } catch (err) {
           console.log(err);
+          Auth.signOut();
         }
       } else {
         console.log("Sign-in was not successful");
       }
     } catch (e) {
       console.log("Opps", e.message);
+      Auth.signOut();
     } finally {
       setLoading(false);
     }
@@ -65,7 +63,7 @@ const SignInScreen = ({ changeScreen }) => {
   };
 
   const onSignUpPress = () => {
-    navigate("/signup", { replace: true });
+    changeScreen("signup");
   };
 
   return (

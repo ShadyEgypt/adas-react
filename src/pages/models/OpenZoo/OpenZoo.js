@@ -16,6 +16,7 @@ function withNavigation(Component) {
 const OpenZooPage = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [option, setOption] = useState("");
+  const [modelName, setModelName] = useState("");
   const [selectedModel, setSelectedModel] = useState("");
   const [isImageHovered, setIsImageHovered] = useState(false);
   const [isVideoHovered, setIsVideoHovered] = useState(false);
@@ -70,9 +71,10 @@ const OpenZooPage = () => {
         name: `${selectedElement.name}`,
         outputS3Key: `${outputS3Key}`,
         type: `${option}`,
+        model: `${modelName}`,
       };
 
-      const url = `http://127.0.0.1:5003/seg-img`;
+      const url = `http://127.0.0.1:5003/adas`;
       const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -179,7 +181,7 @@ const OpenZooPage = () => {
               </div>
             </div>
           </>
-        ) : activeStep >= 0 ? (
+        ) : activeStep > 0 ? (
           <>
             <h3 className="step-title">
               Choose if you'd like to test on Images or Videos
@@ -191,8 +193,78 @@ const OpenZooPage = () => {
         )}
         <div className="spacer"></div>
 
-        {/* file browser */}
+        {/* select model name*/}
         {activeStep === 1 ? (
+          <>
+            <h3 className="step-title">
+              Choose the open zoo model you would like to test
+            </h3>
+            <div className="con-model-name">
+              <div className="select-model">
+                <div
+                  className="road"
+                  onClick={() => setModelName("road-segmentation-adas-0001")}
+                >
+                  <span
+                    className={`button-text ${
+                      modelName === "road-segmentation-adas-0001"
+                        ? "selected"
+                        : `${isImageHovered ? "hovered" : "neither-nor"}`
+                    }`}
+                  >
+                    road-segmentation-adas-0001
+                  </span>
+                </div>
+                <div
+                  className="semantic"
+                  onClick={() =>
+                    setModelName("semantic-segmentation-adas-0001")
+                  }
+                >
+                  {" "}
+                  <span
+                    className={`button-text ${
+                      modelName === "semantic-segmentation-adas-0001"
+                        ? "selected"
+                        : `${isVideoHovered ? "hovered" : "neither-nor"}`
+                    }`}
+                  >
+                    {" "}
+                    semantic-segmentation-adas-0001
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div className="buttons-con">
+              {/* continue button */}
+              <div className="continue-con">
+                {" "}
+                <span
+                  className={`continue-button ${
+                    activeStep === 0 ? "hovered" : "neither-nor"
+                  }`}
+                  onClick={() => {
+                    setActiveStep(activeStep + 1);
+                  }}
+                >
+                  Continue
+                </span>
+              </div>
+            </div>
+          </>
+        ) : activeStep > 1 ? (
+          <>
+            <h3 className="step-title">Model</h3>
+            <h4 className="step-selection">{modelName}</h4>
+          </>
+        ) : (
+          <></>
+        )}
+        <div className="spacer"></div>
+
+        {/* file browser */}
+        {activeStep === 2 ? (
           <>
             <h3 className="step-title">Select a file</h3>
             <div className="con-file">
@@ -239,7 +311,7 @@ const OpenZooPage = () => {
               </div>
             </div>
           </>
-        ) : activeStep >= 1 ? (
+        ) : activeStep >= 2 ? (
           <>
             <h3 className="step-title">Select a file</h3>
             <h4 className="step-selection">file: {selectedElement.name}</h4>
@@ -250,7 +322,7 @@ const OpenZooPage = () => {
         <span className="spacer"></span>
 
         {/* test button */}
-        {activeStep >= 2 ? (
+        {activeStep >= 3 ? (
           <>
             <div className="buttons-con">
               {/* test button */}

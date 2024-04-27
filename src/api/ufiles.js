@@ -293,7 +293,7 @@ export const uFilesAPI = {
       userId: id,
       type: "folder",
       key: `${username}/results/`,
-      name: "yolov2",
+      name: "yolov8",
       num_files: 0,
     };
     const res5 = await this.createFile(uFileInput);
@@ -301,10 +301,19 @@ export const uFilesAPI = {
       userId: id,
       type: "folder",
       key: `${username}/results/`,
-      name: "yolov8",
+      name: "yolov8-optimized",
       num_files: 0,
     };
     const res6 = await this.createFile(uFileInput);
+    uFileInput = {
+      userId: id,
+      type: "folder",
+      key: `${username}/results/`,
+      name: "openzoo-optimized",
+      num_files: 0,
+    };
+    const res7 = await this.createFile(uFileInput);
+
     return "File tree created successfully!";
   },
 };
