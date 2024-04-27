@@ -4,10 +4,9 @@ import { useNavigate, Link } from "react-router-dom";
 import { AuthContext } from "../../context/auth-context";
 import { Auth } from "aws-amplify";
 
-const NavBar = (isLoggedInState) => {
+const NavBar = ({ isLoggedInState, updateLoggedIn }) => {
   const context = useContext(AuthContext);
   const navigate = useNavigate();
-
   async function handleSignOut() {
     try {
       await Auth.signOut();
@@ -21,7 +20,7 @@ const NavBar = (isLoggedInState) => {
       ...prevState,
       isLoggedIn: false,
     }));
-    navigate("/signin", { replace: true });
+    updateLoggedIn(false);
   };
   const handleSignIn = () => {
     navigate("/signin", { replace: true });
@@ -46,7 +45,7 @@ const NavBar = (isLoggedInState) => {
             <li>
               <button onClick={handleLogout}>Logout</button>
             </li>
-          ) : (
+          ) : isLoggedInState === undefined || isLoggedInState === false ? (
             <>
               <li>
                 <button onClick={handleSignIn}>Sign In</button>
@@ -55,6 +54,8 @@ const NavBar = (isLoggedInState) => {
                 <button onClick={handleSignUp}>Sign Up</button>
               </li>
             </>
+          ) : (
+            <></>
           )}
         </ul>
       </nav>

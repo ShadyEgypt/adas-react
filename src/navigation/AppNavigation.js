@@ -22,6 +22,17 @@ function AppNav() {
   const context = useContext(AuthContext);
   const { isLoggedIn, setContextState } = context;
   const [isLoggedInState, setIsLoggedInState] = useState(false);
+
+  const updateLoggedIn = (val) => {
+    setIsLoggedInState(val);
+    if (val) {
+      console.log("state updated");
+      <Navigate to="/home" replace />;
+    } else {
+      <Navigate to="/signin" replace />;
+    }
+  };
+
   useEffect(() => {
     const checkAuthState = async () => {
       try {
@@ -64,12 +75,23 @@ function AppNav() {
     fetchData();
     console.log(isLoggedInState);
   }, []);
+
   return (
     <>
-      <NavBar isLoggedInState={isLoggedInState} />
-      <div className="container-sidebar">
-        <SideBar />
-      </div>
+      <NavBar
+        isLoggedInState={isLoggedInState}
+        updateLoggedIn={updateLoggedIn}
+      />
+      {isLoggedInState ? (
+        <>
+          <div className="container-sidebar">
+            <SideBar />
+          </div>
+        </>
+      ) : (
+        <></>
+      )}
+
       <div className="container-component">
         <Routes>
           {/* public routes */}
@@ -77,7 +99,7 @@ function AppNav() {
             path="/signin"
             element={
               isLoggedInState === undefined || isLoggedInState === false ? (
-                <SignInScreens />
+                <SignInScreens updateLoggedIn={updateLoggedIn} />
               ) : (
                 <Navigate to="/home" replace />
               )
