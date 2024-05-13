@@ -45,6 +45,8 @@
         padding: 10px;
         justify-content: center;
         align-items: center;
+        cursor: default;
+
         .button-text {
           margin-top: 10px;
           border-color: #04aa6d;
@@ -76,6 +78,8 @@
         padding: 10px;
         justify-content: center;
         align-items: center;
+        cursor: default;
+
         .button-text {
           margin-top: 10px;
           border-color: #04aa6d;
@@ -115,13 +119,14 @@
         padding: 10px;
         justify-content: center;
         align-items: center;
+        cursor: grab;
         .button-text {
           margin-top: 10px;
           border-color: #04aa6d;
           border-width: 2px;
           border-style: solid;
           height: 30px;
-          width: 350px;
+          width: 380px;
           line-height: 30px;
           border-radius: 5px;
           &.neither-nor {
@@ -146,13 +151,14 @@
         padding: 10px;
         justify-content: center;
         align-items: center;
+        cursor: grab;
         .button-text {
           margin-top: 10px;
           border-color: #04aa6d;
           border-width: 2px;
           border-style: solid;
           height: 30px;
-          width: 350px;
+          width: 380px;
           line-height: 30px;
           border-radius: 5px;
           &.neither-nor {
@@ -187,6 +193,8 @@
       padding: 10px;
       justify-content: center;
       align-items: center;
+      cursor: default;
+
       .continue-button {
         margin-top: 10px;
         border-color: #04aa6d;
@@ -226,6 +234,8 @@
   padding: 10px;
   justify-content: center;
   align-items: center;
+  cursor: default;
+
   .test-button {
     margin-top: 10px;
     border-color: #04aa6d;
@@ -262,6 +272,8 @@
     padding: 10px;
     justify-content: center;
     align-items: center;
+    cursor: default;
+
     .continue-button {
       margin-top: 10px;
       border-color: #04aa6d;
@@ -294,6 +306,8 @@
     padding: 10px;
     justify-content: center;
     align-items: center;
+    cursor: default;
+
     .continue-button {
       margin-top: 10px;
       border-color: #04aa6d;
@@ -328,6 +342,8 @@
   padding: 10px;
   justify-content: center;
   align-items: center;
+  cursor: default;
+
   .continue-button {
     margin-top: 10px;
     border-color: #04aa6d;

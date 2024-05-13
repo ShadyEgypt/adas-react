@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import SideBar from "../../../components/SideBar";
 import FoldersSideBar from "../components/FoldersSideBar";
@@ -26,7 +26,7 @@ const BddPage = () => {
   const [dynamicElement, setDynamicElement] = useState(null);
   const [dynamicModal, setDynamicModal] = useState(null);
   const [pathList, setPathList] = useState(["BDD-dataset"]);
-  const [showState, setShowState] = useState(false);
+  const [disableState, setDisableState] = useState(false);
   const [open, setOpen] = useState(false);
 
   const foldersTree = bFilesAPI.getTree();
@@ -46,7 +46,7 @@ const BddPage = () => {
 
   const updateSelectedItem = (value) => {
     if (value.type === "image") {
-      setShowState(false);
+      setDisableState(false);
     }
     setSelectedItem(value);
   };
@@ -97,16 +97,16 @@ const BddPage = () => {
     setDynamicModal(selectedItem);
     if (selectedItem) {
       if (selectedItem.type) {
-        if (selectedItem.type === "image") {
-          setShowState(false);
-        } else {
-          setShowState(true);
+        if (selectedItem.type === "image" || selectedItem.type === "video") {
+          setDisableState(false);
+        } else if (selectedItem.type === "folder") {
+          setDisableState(true);
         }
       } else {
-        setShowState(true);
+        setDisableState(true);
       }
     } else {
-      setShowState(true);
+      setDisableState(true);
     }
   };
 
@@ -129,7 +129,7 @@ const BddPage = () => {
                 className="modal"
                 element={dynamicModal}
                 open={open}
-                disabled={showState}
+                disabled={disableState}
                 handleModal={handleModal}
               />{" "}
             </div>
@@ -143,7 +143,7 @@ const BddPage = () => {
             />
           </div>
           <div className="con-right">
-            <div className="con-files">
+            <div className="con-files-bdd">
               <FoldersBrowser
                 elements={dynamicElement}
                 onFolderDoubleClick={updatePath}
@@ -152,7 +152,7 @@ const BddPage = () => {
                 onPageChange={changePage}
                 totalPages={numPages}
                 disableButton={() => {
-                  setShowState(true);
+                  setDisableState(true);
                 }}
               />
             </div>

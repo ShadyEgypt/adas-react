@@ -1,9 +1,10 @@
-import { useState, useEffect, Fragment } from "react";
+import { useState, useEffect, Fragment, useRef } from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
 import "./modal.scss";
+import ReactPlayer from "react-player/lazy";
 
 const style = {
   position: "absolute",
@@ -120,43 +121,66 @@ export default function ShowModal({ element, open, handleModal, disabled }) {
   };
 
   return (
-    <div className="modal_image">
-      <Button disabled={disabled} variant="contained" onClick={handleOpen}>
-        Show
-      </Button>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="parent-modal-title"
-        aria-describedby="parent-modal-description"
-      >
-        <Box sx={{ ...style, width: 1280, height: 800 }}>
-          {element ? (
-            <>
-              <h2 id="parent-modal-title">{element.name}</h2>
-              <p id="parent-modal-description">path: {element.key}</p>
-              <div className="con-element">
-                <img
-                  className="con-image-modal"
-                  src={`https://ddx0brhffx34i.cloudfront.net/${element.key}${element.name}`}
-                  alt={0}
-                />
-              </div>
-              <ShowAnnotationModal element={element} />
-              <Button variant="contained" onClick={handleClose}>
-                Close
-              </Button>
-            </>
-          ) : (
-            <>
-              <h2 id="parent-modal-title">No Image Selected</h2>
-              <Button variant="contained" onClick={handleClose}>
-                Close
-              </Button>
-            </>
-          )}
-        </Box>
-      </Modal>
-    </div>
+    <>
+      <div className="modal_image">
+        <Button disabled={disabled} variant="contained" onClick={handleOpen}>
+          Show
+        </Button>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="parent-modal-title"
+          aria-describedby="parent-modal-description"
+        >
+          <Box sx={{ ...style, width: 1280, height: 800 }}>
+            {element?.type !== undefined ? (
+              <>
+                <h2 id="parent-modal-title">{element.name}</h2>
+                <p id="parent-modal-description">path: {element.key}</p>
+                {element.type === "image" ? (
+                  <>
+                    <div className="con-element">
+                      <img
+                        className="con-image-modal"
+                        src={`https://ddx0brhffx34i.cloudfront.net/${element.key}${element.name}`}
+                        alt={0}
+                      />
+                    </div>
+                    <ShowAnnotationModal element={element} />
+                  </>
+                ) : element.type === "video" ? (
+                  <>
+                    <div className="con-element">
+                      <video
+                        width={`${1280 * 0.8}px`}
+                        height={`${720 * 0.8}px`}
+                        controls
+                      >
+                        <source
+                          src={`https://d33csf9naiv7sh.cloudfront.net/${element.key}${element.name}`}
+                          type="video/mp4"
+                        />
+                      </video>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <h2 id="parent-modal-title">No File Selected</h2>
+                    <Button variant="contained" onClick={handleClose}>
+                      Close
+                    </Button>
+                  </>
+                )}
+                <Button variant="contained" onClick={handleClose}>
+                  Close
+                </Button>
+              </>
+            ) : (
+              <></>
+            )}
+          </Box>
+        </Modal>
+      </div>
+    </>
   );
 }

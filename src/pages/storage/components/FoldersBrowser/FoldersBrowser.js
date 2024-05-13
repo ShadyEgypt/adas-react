@@ -77,7 +77,7 @@ const FoldersBrowser = ({
     <div className="con-browser-nav">
       <div className="con-column">
         <div className="con-row">
-          <div className="files" ref={elementListRef}>
+          <div className="files-bdd" ref={elementListRef}>
             {renderTree(elements)}
           </div>
           <div className="con-spacer-horizontal"></div>

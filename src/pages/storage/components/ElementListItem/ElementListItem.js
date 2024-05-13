@@ -7,7 +7,7 @@ import "./elementListItem.scss";
 const ElementListItem = ({ name, type, selected, onClick, onDoubleClick }) => {
   return (
     <div
-      className={`element-component ${selected ? "selected" : ""}`}
+      className={`element-component-bdd ${selected ? "selected" : ""}`}
       onClick={onClick}
       onDoubleClick={onDoubleClick}
     >

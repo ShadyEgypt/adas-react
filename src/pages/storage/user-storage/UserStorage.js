@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import SideBar from "../../../components/SideBar";
 import FoldersSideBar from "../components/FoldersSideBar";
-import FoldersBrowser from "../components/FoldersBrowser";
+import FoldersBrowserUsers from "../components/FoldersBrowserUsers";
 import PathBar from "../components/PathBar/PathBar";
 import ShowModalUser from "../components/Modal/ShowModalUser";
 import RemoveModalUser from "../components/Modal/RemoveModalUser";
@@ -13,7 +13,9 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import AutorenewIcon from "@mui/icons-material/Autorenew";
 import { AuthContext } from "../../../context/auth-context";
+import { Auth } from "aws-amplify";
 import { uFilesAPI } from "../../../api/ufiles";
+import { UsersAPI } from "../../../api/users";
 import "./user.scss";
 
 function withNavigation(Component) {
@@ -24,12 +26,35 @@ function withNavigation(Component) {
 }
 const ITEMS_PER_PAGE = 30;
 const UserPage = () => {
+  const [userData, setUserData] = useState({});
+  const checkAuthState = async () => {
+    try {
+      const resCognito = await Auth.currentAuthenticatedUser();
+      console.log(resCognito);
+
+      const resMongo = await UsersAPI.getUser(resCognito.attributes.sub);
+      console.log(resMongo);
+      const { name, username, id } = resMongo;
+      setUserData({
+        name,
+        username,
+        mongoId: id,
+        congnitoId: resCognito.attributes.sub,
+      });
+
+      return true;
+    } catch (error) {
+      console.log("Oops", error.message);
+      return false;
+    }
+  };
+
   const context = useContext(AuthContext);
-  const { mongoId, username, name, userId } = context;
+
   const [isLoading, setIsLoading] = useState(false);
-  const [path, setPath] = useState(`${username}/`);
+  const [path, setPath] = useState(`${userData.username}/`);
   const [selectedItem, setSelectedItem] = useState({
-    key: `${username}/`,
+    key: `${userData.username}/`,
     first: true,
   });
   const [selectedPage, setSelectedPage] = useState(1);
@@ -37,12 +62,12 @@ const UserPage = () => {
   const [dynamicElement, setDynamicElement] = useState(null);
   const [dynamicModal, setDynamicModal] = useState(null);
   const [key, setKey] = useState("");
-  const [pathList, setPathList] = useState([`${username}`]);
+  const [pathList, setPathList] = useState([`${userData.username}`]);
   const [open, setOpen] = useState(false);
   const [uploadState, setUploadState] = useState(false);
   const [removeState, setRemoveState] = useState(true);
 
-  const foldersTree = uFilesAPI.getTree(username, name);
+  const foldersTree = uFilesAPI.getTree(userData.username, userData.name);
 
   const updatePath = (element) => {
     console.log(element.key + element.name);
@@ -58,7 +83,7 @@ const UserPage = () => {
   };
 
   const updateSelectedItem = (value) => {
-    if (value.type === "image") {
+    if (value.type === "image" || value.type === "video") {
       setRemoveState(false);
     }
     setSelectedItem(value);
@@ -91,20 +116,23 @@ const UserPage = () => {
     setOpen(true);
   };
   useEffect(() => {
-    fetchFiles(mongoId, selectedPage, path);
+    fetchFiles(userData.mongoId, selectedPage, path);
   }, [path]);
 
   useEffect(() => {
     console.log(selectedPage);
-    fetchFiles(mongoId, selectedPage, path);
+    fetchFiles(userData.mongoId, selectedPage, path);
   }, [selectedPage]);
 
+  useEffect(() => {
+    checkAuthState();
+  }, []);
   const updateStates = async function (selectedItem, key_s3) {
     setDynamicModal(selectedItem);
     setKey(key_s3);
     if (selectedItem) {
       if (selectedItem.type) {
-        if (selectedItem.type === "image") {
+        if (selectedItem.type === "image" || selectedItem.type === "video") {
           setRemoveState(false);
         } else {
           setRemoveState(true);
@@ -121,9 +149,14 @@ const UserPage = () => {
     console.log(selectedItem);
     let key_list;
     if (selectedItem !== null) {
-      key_list = ["public", userId, ...pathList, selectedItem.name];
+      key_list = [
+        "public",
+        userData.congnitoId,
+        ...pathList,
+        selectedItem.name,
+      ];
     } else {
-      key_list = ["public", userId, ...pathList];
+      key_list = ["public", userData.congnitoId, ...pathList];
     }
     const key_s3 = key_list.join("/");
     console.log(key_s3);
@@ -155,7 +188,7 @@ const UserPage = () => {
                   path={pathList}
                   disabled={removeState}
                   Refresh={() => {
-                    fetchFiles(mongoId, selectedPage, path);
+                    fetchFiles(userData.mongoId, selectedPage, path);
                   }}
                 />
 
@@ -163,13 +196,13 @@ const UserPage = () => {
                   className="modal"
                   path={pathList}
                   Refresh={() => {
-                    fetchFiles(mongoId, selectedPage, path);
+                    fetchFiles(userData.mongoId, selectedPage, path);
                   }}
                 />
                 <IconButton
                   aria-label="refresh"
                   onClick={() => {
-                    fetchFiles(mongoId, selectedPage, path);
+                    fetchFiles(userData.mongoId, selectedPage, path);
                   }}
                 >
                   <AutorenewIcon />
@@ -187,7 +220,7 @@ const UserPage = () => {
           </div>
           <div className="con-right">
             <div className="con-files">
-              <FoldersBrowser
+              <FoldersBrowserUsers
                 elements={dynamicElement}
                 onFolderDoubleClick={updatePath}
                 onItemDoubleClick={showItem}

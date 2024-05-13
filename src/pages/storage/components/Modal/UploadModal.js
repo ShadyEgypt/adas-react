@@ -4,12 +4,14 @@ import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import { Storage } from "aws-amplify";
+import { Amplify, Storage } from "aws-amplify";
+import amplifyConfig from "../../../../amplifyconfiguration.json";
 import DropFileInput from "../../../../components/DropFileInput";
 import { uFilesAPI } from "../../../../api/ufiles";
 import { AuthContext } from "../../../../context/auth-context";
 import "./uploadModal.scss";
 
+Amplify.configure(amplifyConfig);
 export default function UploadModal({ path, Refresh }) {
   const context = useContext(AuthContext);
   const { mongoId, userId } = context;

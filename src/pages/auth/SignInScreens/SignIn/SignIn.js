@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { Auth } from "aws-amplify";
 import { AuthContext } from "../../../../context/auth-context";
 import { UsersAPI } from "../../../../api/users";
+import { uFilesAPI } from "../../../../api/ufiles";
 const SignInScreen = ({ changeScreen }) => {
   const [loading, setLoading] = useState(false);
   const context = useContext(AuthContext);
@@ -34,7 +35,7 @@ const SignInScreen = ({ changeScreen }) => {
           console.log(res);
           const { name, username, id } = res;
           console.log(name, username, id);
-
+          await uFilesAPI.createTree(username, id);
           context.setContextState({
             isLoggedIn: true,
             mongoId: id,

@@ -1,13 +1,14 @@
 import { useState } from "react";
 import Yolov8Page from "./Yolov8/Yolov8";
 import YoloV8OptPage from "./Yolov8Opt/Yolov8Opt";
-import OpenZooPage from "./OpenZoo/OpenZoo";
+import { OpenZoo1Page, OpenZoo2Page } from "./OpenZoo/index";
 import "./index.scss";
 
 const ModelsScreens = () => {
   const [isYoloV8Hovered, setIsYoloV8Hovered] = useState(false);
   const [isYoloOptHovered, setIsYoloOptHovered] = useState(false);
-  const [isOZHovered, setIsOZHovered] = useState(false);
+  const [isOZ1Hovered, setIsOZ1Hovered] = useState(false);
+  const [isOZ2Hovered, setIsOZ2Hovered] = useState(false);
   const [activeScreen, setActiveScreen] = useState("");
   const handleRouting = (val) => {
     setActiveScreen(val);
@@ -29,7 +30,7 @@ const ModelsScreens = () => {
                   : `${isYoloV8Hovered ? "hovered" : "neither-nor"}`
               }`}
             >
-              YoloV8
+              YoloV8 Road Segmentation Model
             </span>
           </div>
           <div
@@ -47,25 +48,43 @@ const ModelsScreens = () => {
               }`}
             >
               {" "}
-              YoloV8-optimized
+              YoloV8 Road Segmentation Optimized Model
             </span>
           </div>
           <div
-            className="openzoo-option"
-            onMouseEnter={() => setIsOZHovered(true)}
-            onMouseLeave={() => setIsOZHovered(false)}
-            onClick={() => setActiveScreen("openzoo")}
+            className="openzoo-option1"
+            onMouseEnter={() => setIsOZ1Hovered(true)}
+            onMouseLeave={() => setIsOZ1Hovered(false)}
+            onClick={() => setActiveScreen("openzoo1")}
           >
             {" "}
             <span
               className={`button-text ${
-                activeScreen === "openzoo"
+                activeScreen === "openzoo1"
                   ? "selected"
-                  : `${isOZHovered ? "hovered" : "neither-nor"}`
+                  : `${isOZ1Hovered ? "hovered" : "neither-nor"}`
               }`}
             >
               {" "}
-              Open Zoo model
+              Open Zoo Semantic Segmentation Models
+            </span>
+          </div>
+          <div
+            className="openzoo-option2"
+            onMouseEnter={() => setIsOZ2Hovered(true)}
+            onMouseLeave={() => setIsOZ2Hovered(false)}
+            onClick={() => setActiveScreen("openzoo2")}
+          >
+            {" "}
+            <span
+              className={`button-text ${
+                activeScreen === "openzoo2"
+                  ? "selected"
+                  : `${isOZ2Hovered ? "hovered" : "neither-nor"}`
+              }`}
+            >
+              {" "}
+              Open Zoo Object Detection Models
             </span>
           </div>
         </div>
@@ -74,8 +93,10 @@ const ModelsScreens = () => {
         <Yolov8Page changeScreen={handleRouting} />
       ) : activeScreen === "yolov8-opt" ? (
         <YoloV8OptPage changeScreen={handleRouting} />
-      ) : activeScreen === "openzoo" ? (
-        <OpenZooPage changeScreen={handleRouting} />
+      ) : activeScreen === "openzoo1" ? (
+        <OpenZoo1Page changeScreen={handleRouting} />
+      ) : activeScreen === "openzoo2" ? (
+        <OpenZoo2Page changeScreen={handleRouting} />
       ) : (
         <></>
       )}

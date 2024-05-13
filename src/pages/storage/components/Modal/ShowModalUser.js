@@ -132,29 +132,44 @@ export default function ShowModalUser({
         aria-describedby="parent-modal-description"
       >
         <Box sx={{ ...style, width: 1280, height: 800 }}>
-          {element ? (
+          {element?.type !== undefined ? (
             <>
               <h2 id="parent-modal-title">{element.name}</h2>
               <p id="parent-modal-description">path: {element.key}</p>
-              <div className="con-element">
-                <img
-                  className="con-image-modal"
-                  src={`https://ddx0brhffx34i.cloudfront.net/${key_s3}`}
-                  alt={0}
-                />
-              </div>
-
+              {element.type === "image" ? (
+                <>
+                  <div className="con-element">
+                    <img
+                      className="con-image-modal"
+                      src={`https://ddx0brhffx34i.cloudfront.net/${key_s3}`}
+                      alt={0}
+                    />
+                  </div>
+                </>
+              ) : element.type === "video" ? (
+                <>
+                  <div className="con-element">
+                    <Button
+                      href={`https://d33csf9naiv7sh.cloudfront.net/${key_s3}`}
+                    >
+                      Download Video
+                    </Button>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <h2 id="parent-modal-title">No File Selected</h2>
+                  <Button variant="contained" onClick={handleClose}>
+                    Close
+                  </Button>
+                </>
+              )}
               <Button variant="contained" onClick={handleClose}>
                 Close
               </Button>
             </>
           ) : (
-            <>
-              <h2 id="parent-modal-title">No Image Selected</h2>
-              <Button variant="contained" onClick={handleClose}>
-                Close
-              </Button>
-            </>
+            <></>
           )}
         </Box>
       </Modal>

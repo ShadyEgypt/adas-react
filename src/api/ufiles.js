@@ -212,6 +212,22 @@ export const uFilesAPI = {
         dName: "results",
         num_files: 0,
       },
+      {
+        id: 4,
+        level: 2,
+        key: `${username}/results/`,
+        name: "images",
+        dName: "images",
+        num_files: 0,
+      },
+      {
+        id: 5,
+        level: 2,
+        key: `${username}/results/`,
+        name: "videos",
+        dName: "videos",
+        num_files: 0,
+      },
     ];
   },
   getTestTree: function (username, name, type) {
@@ -257,30 +273,7 @@ export const uFilesAPI = {
   },
   createTree: async function (username, id) {
     let uFileInput;
-    uFileInput = {
-      userId: id,
-      type: "folder",
-      key: `${username}/`,
-      name: "images",
-      num_files: 0,
-    };
-    const res1 = await this.createFile(uFileInput);
-    uFileInput = {
-      userId: id,
-      type: "folder",
-      key: `${username}/`,
-      name: "videos",
-      num_files: 0,
-    };
-    const res2 = await this.createFile(uFileInput);
-    uFileInput = {
-      userId: id,
-      type: "folder",
-      key: `${username}/`,
-      name: "results",
-      num_files: 2,
-    };
-    const res3 = await this.createFile(uFileInput);
+    /* shady-------------------------------------------------- */
     uFileInput = {
       userId: id,
       type: "folder",
@@ -288,32 +281,161 @@ export const uFilesAPI = {
       name: `${username}`,
       num_files: 3,
     };
+    const res1 = await this.createFile(uFileInput);
+    /* shady/images/------------------------------------------ */
+    uFileInput = {
+      userId: id,
+      type: "folder",
+      key: `${username}/`,
+      name: "images",
+      num_files: 0,
+    };
+    const res2 = await this.createFile(uFileInput);
+    /* shady/videos/------------------------------------------ */
+    uFileInput = {
+      userId: id,
+      type: "folder",
+      key: `${username}/`,
+      name: "videos",
+      num_files: 0,
+    };
+    const res3 = await this.createFile(uFileInput);
+    /* shady/results/----------------------------------------- */
+    uFileInput = {
+      userId: id,
+      type: "folder",
+      key: `${username}/`,
+      name: "results",
+      num_files: 2,
+    };
     const res4 = await this.createFile(uFileInput);
+    /* shady/results/images----------------------------------- */
     uFileInput = {
       userId: id,
       type: "folder",
       key: `${username}/results/`,
-      name: "yolov8",
+      name: "images",
       num_files: 0,
     };
     const res5 = await this.createFile(uFileInput);
+    /* shady/results/videos----------------------------------- */
     uFileInput = {
       userId: id,
       type: "folder",
       key: `${username}/results/`,
-      name: "yolov8-optimized",
+      name: "videos",
       num_files: 0,
     };
     const res6 = await this.createFile(uFileInput);
+    /* shady/results/images/yolov8---------------------------- */
     uFileInput = {
       userId: id,
       type: "folder",
-      key: `${username}/results/`,
-      name: "openzoo-optimized",
+      key: `${username}/results/images/`,
+      name: "yolov8",
       num_files: 0,
     };
     const res7 = await this.createFile(uFileInput);
+    /* shady/results/images/yolov8-onnxruntime---------------- */
+    uFileInput = {
+      userId: id,
+      type: "folder",
+      key: `${username}/results/images/`,
+      name: "yolov8-onnxruntime",
+      num_files: 0,
+    };
+    const res8 = await this.createFile(uFileInput);
+    /* shady/results/images/road-segmentation-adas-0001------- */
+    uFileInput = {
+      userId: id,
+      type: "folder",
+      key: `${username}/results/images/`,
+      name: "road-segmentation-adas-0001",
+      num_files: 0,
+    };
+    const res9 = await this.createFile(uFileInput);
+    /* shady/results/images/semantic-segmentation-adas-0001--- */
+    uFileInput = {
+      userId: id,
+      type: "folder",
+      key: `${username}/results/images/`,
+      name: "semantic-segmentation-adas-0001",
+      num_files: 0,
+    };
+    const res10 = await this.createFile(uFileInput);
+    /* shady/results/images/pedestrian-and-vehicle-detector--- */
+    uFileInput = {
+      userId: id,
+      type: "folder",
+      key: `${username}/results/images/`,
+      name: "pedestrian-and-vehicle-detector",
+      num_files: 0,
+    };
+    const res11 = await this.createFile(uFileInput);
+    /* shady/results/images/person-vehicle-bike-detector------ */
+    uFileInput = {
+      userId: id,
+      type: "folder",
+      key: `${username}/results/images/`,
+      name: "person-vehicle-bike-detector",
+      num_files: 0,
+    };
+    const res12 = await this.createFile(uFileInput);
 
+    /* shady/results/videos/yolov8---------------------------- */
+    uFileInput = {
+      userId: id,
+      type: "folder",
+      key: `${username}/results/videos/`,
+      name: "yolov8",
+      num_files: 0,
+    };
+    const res13 = await this.createFile(uFileInput);
+    /* shady/results/videos/yolov8-onnxruntime---------------- */
+    uFileInput = {
+      userId: id,
+      type: "folder",
+      key: `${username}/results/videos/`,
+      name: "yolov8-onnxruntime",
+      num_files: 0,
+    };
+    const res14 = await this.createFile(uFileInput);
+    /* shady/results/videos/road-segmentation-adas-0001------- */
+    uFileInput = {
+      userId: id,
+      type: "folder",
+      key: `${username}/results/videos/`,
+      name: "road-segmentation-adas-0001",
+      num_files: 0,
+    };
+    const res15 = await this.createFile(uFileInput);
+    /* shady/results/videos/semantic-segmentation-adas-0001--- */
+    uFileInput = {
+      userId: id,
+      type: "folder",
+      key: `${username}/results/videos/`,
+      name: "semantic-segmentation-adas-0001",
+      num_files: 0,
+    };
+    const res16 = await this.createFile(uFileInput);
+    /* shady/results/videos/pedestrian-and-vehicle-detector--- */
+    uFileInput = {
+      userId: id,
+      type: "folder",
+      key: `${username}/results/videos/`,
+      name: "pedestrian-and-vehicle-detector",
+      num_files: 0,
+    };
+    const res17 = await this.createFile(uFileInput);
+    /* shady/results/videos/person-vehicle-bike-detector------ */
+    uFileInput = {
+      userId: id,
+      type: "folder",
+      key: `${username}/results/videos/`,
+      name: "person-vehicle-bike-detector",
+      num_files: 0,
+    };
+    const res18 = await this.createFile(uFileInput);
     return "File tree created successfully!";
   },
 };
