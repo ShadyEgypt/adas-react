@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import SideBar from "../../../components/SideBar";
 import FoldersSideBar from "../components/FoldersSideBar";
 import FoldersBrowser from "../components/FoldersBrowser";
 import PathBar from "../components/PathBar/PathBar";
@@ -25,7 +24,7 @@ function withNavigation(Component) {
 }
 
 const ITEMS_PER_PAGE = 30;
-const TestPage = ({ type = "image", setElement, setParentKey }) => {
+const TestPage = ({ type = "image", setElement, setParentKey, setType }) => {
   const defaultPathList =
     type === "image"
       ? ["BDD-dataset", "images", "100k", "test"]
@@ -34,7 +33,7 @@ const TestPage = ({ type = "image", setElement, setParentKey }) => {
     type === "image"
       ? "BDD-dataset/images/100k/test/"
       : "BDD-dataset/videos/test/";
-  console.log(defaultPath, defaultPathList);
+  const num_files = type === "image" ? 20000 : 10;
   const context = useContext(AuthContext);
   const { mongoId, username, name, userId } = context;
   const [isLoading, setIsLoading] = useState(false);
@@ -44,15 +43,14 @@ const TestPage = ({ type = "image", setElement, setParentKey }) => {
     first: true,
   });
   const [selectedPage, setSelectedPage] = useState(1);
-  const [numPages, setNumPages] = useState(1);
+  const [numPages, setNumPages] = useState(
+    Math.ceil(num_files / ITEMS_PER_PAGE)
+  );
   const [dynamicElement, setDynamicElement] = useState(null);
   const [dynamicModal, setDynamicModal] = useState(null);
   const [key, setKey] = useState("");
 
   const [pathList, setPathList] = useState(defaultPathList);
-  const [open, setOpen] = useState(false);
-  const [uploadState, setUploadState] = useState(false);
-  const [removeState, setRemoveState] = useState(true);
 
   const foldersTree = uFilesAPI.getTestTree(username, name, type);
 
@@ -70,9 +68,6 @@ const TestPage = ({ type = "image", setElement, setParentKey }) => {
   };
 
   const updateSelectedItem = (value) => {
-    if (value.type === "image") {
-      setRemoveState(false);
-    }
     setSelectedItem(value);
   };
 
@@ -85,7 +80,7 @@ const TestPage = ({ type = "image", setElement, setParentKey }) => {
       try {
         const res = await bFilesAPI.getFiles(page, path);
         const files = res.data.bFiles;
-        console.log(files);
+        console.log("fetch files ", files);
         setDynamicElement(files);
       } catch (error) {
         // Handle error if needed
@@ -112,53 +107,34 @@ const TestPage = ({ type = "image", setElement, setParentKey }) => {
     setSelectedPage(value);
   };
 
-  const handleModal = (value) => {
-    setOpen(value);
-  };
-  const showItem = () => {
-    setOpen(true);
-  };
   useEffect(() => {
     fetchFiles(mongoId, selectedPage, path);
-  }, [path]);
+  }, [path, mongoId, selectedPage]);
 
   useEffect(() => {
-    console.log(selectedPage);
+    console.log("selected page", selectedPage);
     fetchFiles(mongoId, selectedPage, path);
-  }, [selectedPage]);
-
-  const updateStates = async function (selectedItem, key_s3) {
-    setDynamicModal(selectedItem);
-    if (selectedItem.first === undefined) {
-      setElement(selectedItem);
-      setParentKey(key_s3);
-    }
-    setKey(key_s3);
-    if (selectedItem) {
-      if (selectedItem.type) {
-        if (selectedItem.type === "image") {
-          setRemoveState(false);
-        } else {
-          setRemoveState(true);
-        }
-      } else {
-        setRemoveState(true);
-      }
-    } else {
-      setRemoveState(true);
-    }
-  };
+  }, [mongoId, path, selectedPage]);
 
   useEffect(() => {
-    if (type == "image") {
+    if (type === "image") {
       setPath("BDD-dataset/images/100k/test/");
       setPathList(["BDD-dataset", "images", "100k", "test"]);
-    } else if (type == "video") {
+    } else if (type === "video") {
       setPath("BDD-dataset/videos/test/");
       setPathList(["BDD-dataset", "videos", "test"]);
     }
   }, [type]);
+
   useEffect(() => {
+    const updateStates = async function (selectedItem, key_s3) {
+      setDynamicModal(selectedItem);
+      if (selectedItem.first === undefined) {
+        setElement(selectedItem);
+        setParentKey(key_s3);
+      }
+      setKey(key_s3);
+    };
     console.log(selectedItem);
     let key_list;
     if (pathList[0] === "BDD-dataset") {
@@ -178,7 +154,7 @@ const TestPage = ({ type = "image", setElement, setParentKey }) => {
     const key_s3 = key_list.join("/");
     console.log(key_s3);
     updateStates(selectedItem, key_s3);
-  }, [selectedItem]);
+  }, [pathList, setElement, setParentKey, userId, selectedItem]);
 
   return (
     <>
@@ -186,6 +162,11 @@ const TestPage = ({ type = "image", setElement, setParentKey }) => {
         <div className="con-col-1">
           <div className="con-top">
             <FoldersSideBar
+              setType={(val) => {
+                setType(val);
+                console.log(val);
+              }}
+              defaultId={1}
               foldersTree={foldersTree}
               onStateChange={updatePath}
             />
@@ -195,13 +176,9 @@ const TestPage = ({ type = "image", setElement, setParentKey }) => {
               <FoldersBrowser
                 elements={dynamicElement}
                 onFolderDoubleClick={updatePath}
-                onItemDoubleClick={showItem}
                 onPathChange={updateSelectedItem}
                 onPageChange={changePage}
                 totalPages={numPages}
-                disableButton={() => {
-                  setRemoveState(true);
-                }}
               />
             </div>
             <div className="con-pages">

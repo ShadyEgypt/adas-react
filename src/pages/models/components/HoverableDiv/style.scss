@@ -1,0 +1,40 @@
+.option {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: default;
+  .button-text {
+    margin-top: 10px;
+    border-color: #04aa6d;
+    border-width: 2px;
+    border-style: solid;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 5px;
+    &.neither-nor {
+      background-color: #e6e6e6;
+      color: #4d4d4d;
+    }
+    &.hovered {
+      background-color: #b3b3b3;
+      color: #ffffff;
+      font-weight: bold;
+    }
+    &.selected {
+      background-color: #04aa6d;
+      color: #ffffff;
+      font-weight: bold;
+    }
+    &.button-neither-nor {
+      background-color: #e1bd58;
+      color: #ffffff;
+      font-weight: bold;
+    }
+    &.button-hovered {
+      background-color: #5236d0;
+      color: #ffffff;
+      font-weight: bold;
+    }
+  }
+}

@@ -20,7 +20,10 @@ const FoldersBrowser = ({
         elementListRef.current &&
         !elementListRef.current.contains(event.target)
       ) {
-        disableButton();
+        if (disableButton) {
+          disableButton();
+        }
+
         setSelectedId(null);
       }
     };

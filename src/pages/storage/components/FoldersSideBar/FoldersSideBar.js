@@ -1,12 +1,24 @@
 import React, { useState } from "react";
 import FolderListItem from "../FolderListItem";
 
-const FoldersSideBar = ({ foldersTree, onStateChange }) => {
-  const [selectedId, setSelectedId] = useState(null);
+const FoldersSideBar = ({
+  foldersTree,
+  onStateChange,
+  defaultId = null,
+  setType,
+}) => {
+  const [selectedId, setSelectedId] = useState(defaultId);
 
   const handleSelect = (node) => {
     setSelectedId(node.id);
     onStateChange(node);
+    if (setType) {
+      if (node.id === 1) {
+        setType("BDD-dataset");
+      } else {
+        setType("user");
+      }
+    }
     console.log(node + " from side bar");
   };
 

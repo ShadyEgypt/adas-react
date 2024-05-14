@@ -35,7 +35,7 @@ const SignInScreen = ({ changeScreen }) => {
           console.log(res);
           const { name, username, id } = res;
           console.log(name, username, id);
-          await uFilesAPI.createTree(username, id);
+          // await uFilesAPI.createTree(username, id);
           context.setContextState({
             isLoggedIn: true,
             mongoId: id,

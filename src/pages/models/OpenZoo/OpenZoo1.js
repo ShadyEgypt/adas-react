@@ -1,6 +1,5 @@
 import React, { Component, useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import SideBar from "../../../components/SideBar";
 import { AuthContext } from "../../../context/auth-context";
 import CircularProgress from "@mui/material/CircularProgress";
 import Button from "@mui/material/Button";

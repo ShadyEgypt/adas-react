@@ -1,121 +1,97 @@
-.con-model {
-  margin-top: 10px;
-  .select-option {
+.models {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  h1 {
+    width: 100%;
+    font-weight: 900;
+    color: gray;
+    margin: 0;
+  }
+  .spacer {
+    height: 20px;
+  }
+  .buttons-con {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
-    .yolov8-option {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      cursor: default;
-      .button-text {
-        margin-top: 10px;
-        border-color: #04aa6d;
-        border-width: 2px;
-        border-style: solid;
-        height: 30px;
-        width: 450px;
-        line-height: 30px;
-        border-radius: 5px;
-        &.neither-nor {
-          background-color: #e6e6e6;
-          color: #4d4d4d;
-        }
-        &.hovered {
-          background-color: #b3b3b3;
-          color: #ffffff;
-          font-weight: bold;
-        }
-        &.selected {
-          background-color: #04aa6d;
-          color: #ffffff;
-          font-weight: bold;
-        }
-      }
+    gap: 10px;
+  }
+  .step-selection {
+    width: 100%;
+    font-weight: 500;
+    color: gray;
+    margin: 0;
+  }
+  .con-model {
+    margin-top: 10px;
+    .step-title {
+      width: 100%;
+      font-weight: bold;
+      color: gray;
+      margin: 0;
     }
-    .yolov8-optimized-option {
+    .models-group-title {
+      width: 100%;
+      font-weight: bold;
+      color: gray;
+      margin-top: 5px;
+      margin-bottom: 0;
+    }
+    .select-option {
       display: flex;
       flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  .con-type {
+    margin-top: 10px;
+    .step-title {
+      width: 100%;
+      font-weight: bold;
+      color: gray;
+      margin: 0;
+    }
+    .select-type {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+  }
+
+  .con-file {
+    min-width: 900px;
+    .step-title {
+      width: 100%;
+      font-weight: bold;
+      color: gray;
+      margin: 0;
+    }
+    .continue-con {
+      display: flex;
+      flex-direction: column;
+      padding: 10px;
       justify-content: center;
       align-items: center;
       cursor: default;
 
-      .button-text {
+      .continue-button {
         margin-top: 10px;
         border-color: #04aa6d;
         border-width: 2px;
         border-style: solid;
         height: 30px;
-        width: 450px;
+        width: 150px;
         line-height: 30px;
         border-radius: 5px;
-        &.neither-nor {
-          background-color: #e6e6e6;
-          color: #4d4d4d;
-        }
-        &.hovered {
-          background-color: #b3b3b3;
-          color: #ffffff;
-          font-weight: bold;
-        }
-        &.selected {
-          background-color: #04aa6d;
-          color: #ffffff;
-          font-weight: bold;
-        }
-      }
-    }
-    .openzoo-option1 {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      cursor: default;
 
-      .button-text {
-        margin-top: 10px;
-        border-color: #04aa6d;
-        border-width: 2px;
-        border-style: solid;
-        height: 30px;
-        width: 450px;
-        line-height: 30px;
-        border-radius: 5px;
-        &.neither-nor {
-          background-color: #e6e6e6;
-          color: #4d4d4d;
-        }
-        &.hovered {
-          background-color: #b3b3b3;
-          color: #ffffff;
-          font-weight: bold;
-        }
-        &.selected {
-          background-color: #04aa6d;
-          color: #ffffff;
-          font-weight: bold;
-        }
-      }
-    }
-    .openzoo-option2 {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      cursor: default;
-
-      .button-text {
-        margin-top: 10px;
-        border-color: #04aa6d;
-        border-width: 2px;
-        border-style: solid;
-        height: 30px;
-        width: 450px;
-        line-height: 30px;
-        border-radius: 5px;
         &.neither-nor {
           background-color: #e6e6e6;
           color: #4d4d4d;
