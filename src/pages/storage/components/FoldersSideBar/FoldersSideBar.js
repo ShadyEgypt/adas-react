@@ -19,7 +19,7 @@ const FoldersSideBar = ({
         setType("user");
       }
     }
-    console.log(node + " from side bar");
+    console.log(node.dName + " from side bar");
   };
 
   return (

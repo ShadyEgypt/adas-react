@@ -2,14 +2,8 @@ import React, { useState, useEffect, useContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import FoldersSideBar from "../components/FoldersSideBar";
 import FoldersBrowser from "../components/FoldersBrowser";
-import PathBar from "../components/PathBar/PathBar";
-import ShowModalUser from "../components/Modal/ShowModalUser";
-import UploadModal from "../components/Modal/UploadModal";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
-import AutorenewIcon from "@mui/icons-material/Autorenew";
 import { AuthContext } from "../../../context/auth-context";
 import { uFilesAPI } from "../../../api/ufiles";
 import { bFilesAPI } from "../../../api/bfiles";
@@ -25,6 +19,7 @@ function withNavigation(Component) {
 
 const ITEMS_PER_PAGE = 30;
 const TestPage = ({ type = "image", setElement, setParentKey, setType }) => {
+  const [isFirstMount, setIsFirstMount] = useState(true);
   const defaultPathList =
     type === "image"
       ? ["BDD-dataset", "images", "100k", "test"]
@@ -33,7 +28,7 @@ const TestPage = ({ type = "image", setElement, setParentKey, setType }) => {
     type === "image"
       ? "BDD-dataset/images/100k/test/"
       : "BDD-dataset/videos/test/";
-  const num_files = type === "image" ? 20000 : 10;
+  const num_files = type === "image" ? 300 : 10;
   const context = useContext(AuthContext);
   const { mongoId, username, name, userId } = context;
   const [isLoading, setIsLoading] = useState(false);
@@ -56,7 +51,11 @@ const TestPage = ({ type = "image", setElement, setParentKey, setType }) => {
 
   const updatePath = (element) => {
     console.log(element.key + element.name);
-    setNumPages(Math.ceil(element.num_files / ITEMS_PER_PAGE));
+    if (element.key + element.name === "BDD-dataset/images/100k/test") {
+      setNumPages(Math.ceil(300 / ITEMS_PER_PAGE));
+    } else {
+      setNumPages(Math.ceil(element.num_files / ITEMS_PER_PAGE));
+    }
     let newPath = "";
     if (element.name !== "") {
       newPath = element.key + element.name + "/";
@@ -71,50 +70,61 @@ const TestPage = ({ type = "image", setElement, setParentKey, setType }) => {
     setSelectedItem(value);
   };
 
-  const fetchFiles = async function (mongoId, page = 1, path) {
-    setIsLoading(true);
-    if (
-      path === "BDD-dataset/images/100k/test/" ||
-      path === "BDD-dataset/videos/test/"
-    ) {
-      try {
-        const res = await bFilesAPI.getFiles(page, path);
-        const files = res.data.bFiles;
-        console.log("fetch files ", files);
-        setDynamicElement(files);
-      } catch (error) {
-        // Handle error if needed
-        console.error("Error fetching files:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    } else {
-      try {
-        const res = await uFilesAPI.getFiles(mongoId, page, path);
-        const files = res.data.uFiles;
-        console.log(files);
-        setDynamicElement(files);
-      } catch (error) {
-        // Handle error if needed
-        console.error("Error fetching files:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    }
-  };
-
   const changePage = (value) => {
     setSelectedPage(value);
   };
 
-  useEffect(() => {
-    fetchFiles(mongoId, selectedPage, path);
-  }, [path, mongoId, selectedPage]);
+  const fetchFilesBDD = async function (page = 1, path) {
+    setIsLoading(true);
+    try {
+      const res = await bFilesAPI.getFiles(page, path);
+      const files = res.data.bFiles;
+      console.log("fetch files ", files);
+      setDynamicElement(files);
+    } catch (error) {
+      // Handle error if needed
+      console.error("Error fetching files:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const fetchFilesUser = async function (mongoId, page = 1, path) {
+    setIsLoading(true);
+    try {
+      const res = await uFilesAPI.getFiles(mongoId, page, path);
+      const files = res.data.uFiles;
+      console.log(files);
+      setDynamicElement(files);
+    } catch (error) {
+      // Handle error if needed
+      console.error("Error fetching files:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const updateStates = async function (selectedItem, key_s3) {
+    setDynamicModal(selectedItem);
+    if (selectedItem.first === undefined) {
+      setElement(selectedItem);
+      setParentKey(key_s3);
+    }
+    setKey(key_s3);
+  };
 
   useEffect(() => {
     console.log("selected page", selectedPage);
-    fetchFiles(mongoId, selectedPage, path);
-  }, [mongoId, path, selectedPage]);
+    if (
+      path === "BDD-dataset/images/100k/test/" ||
+      "BDD-dataset/videos/test/"
+    ) {
+      fetchFilesBDD(selectedPage, path);
+    } else {
+      fetchFilesUser(mongoId, selectedPage, path);
+    }
+    setIsFirstMount(false);
+  }, [path, selectedPage]);
 
   useEffect(() => {
     if (type === "image") {
@@ -127,14 +137,6 @@ const TestPage = ({ type = "image", setElement, setParentKey, setType }) => {
   }, [type]);
 
   useEffect(() => {
-    const updateStates = async function (selectedItem, key_s3) {
-      setDynamicModal(selectedItem);
-      if (selectedItem.first === undefined) {
-        setElement(selectedItem);
-        setParentKey(key_s3);
-      }
-      setKey(key_s3);
-    };
     console.log(selectedItem);
     let key_list;
     if (pathList[0] === "BDD-dataset") {
@@ -154,7 +156,7 @@ const TestPage = ({ type = "image", setElement, setParentKey, setType }) => {
     const key_s3 = key_list.join("/");
     console.log(key_s3);
     updateStates(selectedItem, key_s3);
-  }, [pathList, setElement, setParentKey, userId, selectedItem]);
+  }, [selectedItem]);
 
   return (
     <>

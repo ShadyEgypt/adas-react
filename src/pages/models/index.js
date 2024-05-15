@@ -2,11 +2,12 @@ import { useState } from "react";
 import TestStorage from "../storage/test-storage/TestStorage";
 import HoverableDiv from "./components/HoverableDiv/index";
 import "./index.scss";
-import { set } from "react-hook-form";
+import SegmentImages from "./SegmentImages/SegmentImages";
 
 const ModelsScreens = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [selectedModel, setSelectedModel] = useState("");
+  const [modelName, setModelName] = useState("");
   const [type, setType] = useState("");
   const [fileType, setFileType] = useState("BDD-dataset");
   const [selectedElement, setSelectedElement] = useState(null);
@@ -14,6 +15,28 @@ const ModelsScreens = () => {
 
   const handleClick = (val) => {
     setSelectedModel(val);
+    switch (val) {
+      case "yolov8":
+        setModelName("YoloV8 Road Segmentation Model");
+        break;
+      case "yolov8-opt":
+        setModelName("YoloV8 Road Segmentation Optimized Model");
+        break;
+      case "adas-semantic-1":
+        setModelName("road-segmentation-adas-0001");
+        break;
+      case "adas-semantic-2":
+        setModelName("semantic-segmentation-adas-0001");
+        break;
+      case "adas-object-1":
+        setModelName("pedestrian-and-vehicle-detector-adas-0001");
+        break;
+      case "adas-object-2":
+        setModelName("person-vehicle-bike-detection-crossroad-0078");
+        break;
+      default:
+        break;
+    }
   };
 
   const handleDataClick = (val) => {
@@ -31,13 +54,17 @@ const ModelsScreens = () => {
             <div className="select-model">
               <HoverableDiv
                 optionSelected={selectedModel === "yolov8"}
-                handleClick={handleClick}
+                handleClick={() => {
+                  handleClick("yolov8");
+                }}
                 name={"YoloV8 Road Segmentation Model"}
                 screen={"yolov8"}
               />
               <HoverableDiv
                 optionSelected={selectedModel === "yolov8-opt"}
-                handleClick={handleClick}
+                handleClick={() => {
+                  handleClick("yolov8-opt");
+                }}
                 name={"YoloV8 Road Segmentation Optimized Model"}
                 screen={"yolov8-opt"}
               />
@@ -46,13 +73,17 @@ const ModelsScreens = () => {
               </h4>
               <HoverableDiv
                 optionSelected={selectedModel === "adas-semantic-1"}
-                handleClick={handleClick}
+                handleClick={() => {
+                  handleClick("adas-semantic-1");
+                }}
                 name={"road-segmentation-adas-0001"}
                 screen={"adas-semantic-1"}
               />
               <HoverableDiv
                 optionSelected={selectedModel === "adas-semantic-2"}
-                handleClick={handleClick}
+                handleClick={() => {
+                  handleClick("adas-semantic-2");
+                }}
                 name={"semantic-segmentation-adas-0001"}
                 screen={"adas-semantic-2"}
               />
@@ -61,14 +92,18 @@ const ModelsScreens = () => {
               </h4>
               <HoverableDiv
                 optionSelected={selectedModel === "adas-object-1"}
-                handleClick={handleClick}
+                handleClick={() => {
+                  handleClick("adas-object-1");
+                }}
                 name={"pedestrian-and-vehicle-detector-adas-0001"}
                 screen={"adas-object-1"}
               />
               <HoverableDiv
                 optionSelected={selectedModel === "adas-object-2"}
-                handleClick={handleClick}
-                name={"pedestrian-and-vehicle-detector-adas-0001"}
+                handleClick={() => {
+                  handleClick("adas-object-2");
+                }}
+                name={"person-vehicle-bike-detection-crossroad-0078"}
                 screen={"adas-object-2"}
               />
             </div>
@@ -91,7 +126,7 @@ const ModelsScreens = () => {
         </>
       ) : activeStep > 0 ? (
         <>
-          <h4 className="step-selection">model name: {selectedModel}</h4>
+          <h4 className="step-selection">model name: {modelName}</h4>
         </>
       ) : (
         <></>
@@ -229,7 +264,7 @@ const ModelsScreens = () => {
                 condition={selectedElement !== null && selectedKey !== null}
                 handleClick={() => {
                   if (selectedElement !== null && selectedKey !== null) {
-                    // handleOpen();
+                    setActiveStep(activeStep + 1);
                   }
                 }}
                 name={"Test"}
@@ -241,9 +276,7 @@ const ModelsScreens = () => {
               <HoverableDiv
                 isButton={true}
                 handleClick={() => {
-                  setActiveStep(activeStep - 1);
-                  setSelectedElement(null);
-                  setSelectedKey(null);
+                  setActiveStep(2);
                 }}
                 name={"Back"}
                 width={150}
@@ -257,19 +290,25 @@ const ModelsScreens = () => {
       <span className="spacer"></span>
 
       {/* loading */}
-
-      <span className="spacer"></span>
-      {/* {selectedModel === "yolov8" ? (
-        <Yolov8Page changeScreen={handleRouting} />
-      ) : selectedModel === "yolov8-opt" ? (
-        <YoloV8OptPage changeScreen={handleRouting} />
-      ) : selectedModel === "openzoo1" ? (
-        <OpenZoo1Page changeScreen={handleRouting} />
-      ) : selectedModel === "openzoo2" ? (
-        <OpenZoo2Page changeScreen={handleRouting} />
+      {activeStep === 4 ? (
+        <>
+          <span className="spacer"></span>
+          {type === "image" ? (
+            <>
+              <SegmentImages
+                fileType={"BDD-dataset"}
+                selectedElement={selectedElement}
+                selectedKey={selectedKey}
+                model={selectedModel}
+              />
+            </>
+          ) : (
+            <></>
+          )}
+        </>
       ) : (
         <></>
-      )} */}
+      )}
     </div>
   );
 };
