@@ -185,7 +185,7 @@ export const uFilesAPI = {
         level: 0,
         key: "",
         name: `${username}`,
-        dName: `${name}`,
+        dName: `${username}`,
         num_files: 3,
       },
       {
