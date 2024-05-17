@@ -1,42 +1,22 @@
 {
   "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-adasreact-dev-110533-authRole",
-      "UnauthRoleArn": "arn:aws:iam::141178960309:role/amplify-adasreact-dev-110533-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::141178960309:role/amplify-adasreact-dev-110533-authRole",
+      "AuthRoleName": "amplify-adasreact-dev-86c36-authRole",
+      "UnauthRoleArn": "arn:aws:iam::141178960309:role/amplify-adasreact-dev-86c36-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::141178960309:role/amplify-adasreact-dev-86c36-authRole",
       "Region": "eu-north-1",
-      "DeploymentBucketName": "amplify-adasreact-dev-110533-deployment",
-      "UnauthRoleName": "amplify-adasreact-dev-110533-unauthRole",
-      "StackName": "amplify-adasreact-dev-110533",
-      "StackId": "arn:aws:cloudformation:eu-north-1:141178960309:stack/amplify-adasreact-dev-110533/00929db0-f007-11ee-bc0b-06a2476fd4ba",
-      "AmplifyAppId": "d2ezouesw8i248",
-      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-adasreact-dev-110533-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
+      "DeploymentBucketName": "amplify-adasreact-dev-86c36-deployment",
+      "UnauthRoleName": "amplify-adasreact-dev-86c36-unauthRole",
+      "StackName": "amplify-adasreact-dev-86c36",
+      "StackId": "arn:aws:cloudformation:eu-north-1:141178960309:stack/amplify-adasreact-dev-86c36/588f9500-1487-11ef-82ad-0607b50b4a85",
+      "AmplifyAppId": "dtmkz3658sw1o"
     },
     "categories": {
-      "function": {
-        "adasreact1716817517168175PostConfirmation": {
-          "GROUP": "visitor",
-          "deploymentBucketName": "amplify-adasreact-dev-110533-deployment",
-          "s3Key": "amplify-builds/adasreact1716817517168175PostConfirmation-46316f33784e61556a4f-build.zip"
-        },
-        "adasreacte7669d4de7669d4dPostConfirmation": {
-          "GROUP": "visitor",
-          "deploymentBucketName": "amplify-adasreact-dev-110533-deployment",
-          "s3Key": "amplify-builds/adasreacte7669d4de7669d4dPostConfirmation-7147515433694f377a7a-build.zip"
-        }
-      },
-      "hosting": {
-        "amplifyhosting": {
-          "appId": "d2ezouesw8i248",
-          "type": "manual"
-        }
-      },
       "auth": {
-        "adasreact1716817517168175": {},
-        "userPoolGroups": {}
+        "adasreact": {}
       },
       "storage": {
-        "adasreactb1307bf9": {
+        "adasreact5a682759": {
           "bucketName": "adas-project-bucket",
           "region": "eu-north-1"
         }
