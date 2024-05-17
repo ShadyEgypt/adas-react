@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useContext, useRef } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import SideBar from "../../../components/SideBar";
 import FoldersSideBar from "../components/FoldersSideBar";
 import FoldersBrowserUsers from "../components/FoldersBrowserUsers";
 import PathBar from "../components/PathBar/PathBar";
@@ -9,7 +8,6 @@ import RemoveModalUser from "../components/Modal/RemoveModalUser";
 import UploadModal from "../components/Modal/UploadModal";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import AutorenewIcon from "@mui/icons-material/Autorenew";
 import { AuthContext } from "../../../context/auth-context";
@@ -30,31 +28,30 @@ const UserPage = () => {
   const checkAuthState = async () => {
     try {
       const resCognito = await Auth.currentAuthenticatedUser();
-      console.log(resCognito);
+      console.log("cognito result", resCognito.attributes.sub);
 
       const resMongo = await UsersAPI.getUser(resCognito.attributes.sub);
-      console.log(resMongo);
+      console.log("mongodb result", resMongo.username);
       const { name, username, id } = resMongo;
-      setUserData({
+      const result = {
         name,
         username,
         mongoId: id,
         congnitoId: resCognito.attributes.sub,
-      });
+      };
+      setUserData(result);
 
-      return true;
+      return result;
     } catch (error) {
       console.log("Oops", error.message);
       return false;
     }
   };
 
-  const context = useContext(AuthContext);
-
   const [isLoading, setIsLoading] = useState(false);
-  const [path, setPath] = useState(`${userData.username}/`);
+  const [path, setPath] = useState("username");
   const [selectedItem, setSelectedItem] = useState({
-    key: `${userData.username}/`,
+    key: "username",
     first: true,
   });
   const [selectedPage, setSelectedPage] = useState(1);
@@ -69,15 +66,17 @@ const UserPage = () => {
 
   const foldersTree = uFilesAPI.getTree(userData.username, userData.name);
 
-  const updatePath = (element) => {
-    console.log(element.key + element.name);
-    setNumPages(Math.ceil(element.num_files / ITEMS_PER_PAGE));
+  const updatePath = async (element) => {
+    const { name, key, num_files } = element;
+    console.log(key + name);
+    setNumPages(Math.ceil(num_files / ITEMS_PER_PAGE));
     let newPath = "";
-    if (element.name !== "") {
-      newPath = element.key + element.name + "/";
+    if (name !== "") {
+      newPath = key + name + "/";
     } else {
-      newPath = element.key;
+      newPath = key;
     }
+    console.log("new path", newPath);
     setPathList(newPath.split("/").filter((word) => word !== ""));
     setPath(newPath);
   };
@@ -94,7 +93,7 @@ const UserPage = () => {
     try {
       const res = await uFilesAPI.getFiles(mongoId, page, path);
       const files = res.data.uFiles;
-      console.log(files);
+      console.log("files fetched: ", files);
       setDynamicElement(files);
     } catch (error) {
       // Handle error if needed
@@ -115,18 +114,7 @@ const UserPage = () => {
   const showItem = () => {
     setOpen(true);
   };
-  useEffect(() => {
-    fetchFiles(userData.mongoId, selectedPage, path);
-  }, [path]);
 
-  useEffect(() => {
-    console.log(selectedPage);
-    fetchFiles(userData.mongoId, selectedPage, path);
-  }, [selectedPage]);
-
-  useEffect(() => {
-    checkAuthState();
-  }, []);
   const updateStates = async function (selectedItem, key_s3) {
     setDynamicModal(selectedItem);
     setKey(key_s3);
@@ -146,22 +134,34 @@ const UserPage = () => {
   };
 
   useEffect(() => {
+    fetchFiles(userData.mongoId, selectedPage, path);
+  }, [selectedPage, path]);
+
+  useEffect(() => {
     console.log(selectedItem);
     let key_list;
     if (selectedItem !== null) {
-      key_list = [
-        "public",
-        userData.congnitoId,
-        ...pathList,
-        selectedItem.name,
-      ];
+      key_list = ["public", userData.username, ...pathList, selectedItem.name];
     } else {
-      key_list = ["public", userData.congnitoId, ...pathList];
+      key_list = ["public", userData.username, ...pathList];
     }
     const key_s3 = key_list.join("/");
     console.log(key_s3);
     updateStates(selectedItem, key_s3);
   }, [selectedItem]);
+
+  // create an async useEffect without any code inside it
+  useEffect(async () => {
+    const result = await checkAuthState();
+    console.log("result", result);
+    const { username } = result;
+    const element = {
+      key: username,
+      name: "",
+      num_files: 3,
+    };
+    updatePath(element);
+  }, []);
 
   return (
     <>

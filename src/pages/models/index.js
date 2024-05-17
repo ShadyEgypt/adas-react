@@ -296,7 +296,7 @@ const ModelsScreens = () => {
           {type === "image" ? (
             <>
               <SegmentImages
-                fileType={"BDD-dataset"}
+                fileType={fileType}
                 selectedElement={selectedElement}
                 selectedKey={selectedKey}
                 model={selectedModel}

@@ -12,7 +12,7 @@ import { AuthContext } from "../../../../context/auth-context";
 import "./uploadModal.scss";
 
 Amplify.configure(amplifyConfig);
-export default function UploadModal({ path, Refresh }) {
+export default function UploadModal({ path, Refresh, type = "image" }) {
   const context = useContext(AuthContext);
   const { mongoId, userId } = context;
   const [open, setOpen] = useState(false);
@@ -48,7 +48,9 @@ export default function UploadModal({ path, Refresh }) {
         console.log(key_s3);
 
         try {
-          const res1 = await Storage.put(key_s3, file);
+          const res1 = await Storage.put(key_s3, file, {
+            contentType: `${type === "image" ? "image/png" : "video/mp4"}`,
+          });
           console.log(res1);
           const userInputs = {
             userId: mongoId,

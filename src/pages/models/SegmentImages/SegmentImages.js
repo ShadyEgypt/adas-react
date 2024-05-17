@@ -34,7 +34,7 @@ const SegmentImages = ({
 
     //write a code to delay for 3 seconds
     await new Promise((resolve) => setTimeout(resolve, 3000));
-    setLoading(false);
+    // setLoading(false);
     setOpen(true);
   };
   const handleClose = () => {
@@ -106,7 +106,11 @@ const SegmentImages = ({
       {loading ? (
         <>
           <h3 className="step-title">Wait a few seconds</h3>
-          <span className="spacer"></span>
+          <span className="spacer">{fileType}</span>
+          <span className="spacer">{selectedKey}</span>
+          <span className="spacer">{selectedElement.name}</span>
+          <span className="spacer">{selectedElement.key}</span>
+          <span className="spacer">{model}</span>
           <CircularProgress />
         </>
       ) : (
