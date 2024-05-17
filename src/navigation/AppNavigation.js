@@ -18,6 +18,7 @@ import UserStorage from "../pages/storage/user-storage/UserStorage";
 import ModelsScreens from "../pages/models/index";
 
 function AppNav() {
+  const [userInfo, setUserInfo] = useState({});
   const navigate = useNavigate();
   const context = useContext(AuthContext);
   const { isLoggedIn, setContextState } = context;
@@ -42,7 +43,13 @@ function AppNav() {
         const resMongo = await UsersAPI.getUser(resCognito.attributes.sub);
         console.log(resMongo);
         const { name, username, id } = resMongo;
-
+        const result = {
+          name,
+          username,
+          mongoId: id,
+          congnitoId: resCognito.attributes.sub,
+        };
+        setUserInfo(result);
         setContextState({
           isLoggedIn: true,
           mongoId: id,
@@ -151,7 +158,7 @@ function AppNav() {
             path="/user-data"
             element={
               isLoggedInState !== undefined && isLoggedInState === true ? (
-                <UserStorage />
+                <UserStorage userInfo={userInfo} />
               ) : (
                 <Navigate to="/signin" replace />
               )
