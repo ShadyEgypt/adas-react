@@ -23,31 +23,8 @@ function withNavigation(Component) {
   };
 }
 const ITEMS_PER_PAGE = 30;
-const UserPage = () => {
-  const [userData, setUserData] = useState({});
-  const checkAuthState = async () => {
-    try {
-      const resCognito = await Auth.currentAuthenticatedUser();
-      console.log("cognito result", resCognito.attributes.sub);
-
-      const resMongo = await UsersAPI.getUser(resCognito.attributes.sub);
-      console.log("mongodb result", resMongo.username);
-      const { name, username, id } = resMongo;
-      const result = {
-        name,
-        username,
-        mongoId: id,
-        congnitoId: resCognito.attributes.sub,
-      };
-      setUserData(result);
-
-      return result;
-    } catch (error) {
-      console.log("Oops", error.message);
-      return false;
-    }
-  };
-
+const UserPage = ({ userInfo }) => {
+  const [userData, setUserData] = useState(userInfo);
   const [isLoading, setIsLoading] = useState(false);
   const [path, setPath] = useState("username");
   const [selectedItem, setSelectedItem] = useState({
@@ -141,9 +118,9 @@ const UserPage = () => {
     console.log(selectedItem);
     let key_list;
     if (selectedItem !== null) {
-      key_list = ["public", userData.username, ...pathList, selectedItem.name];
+      key_list = ["public", ...pathList, selectedItem.name];
     } else {
-      key_list = ["public", userData.username, ...pathList];
+      key_list = ["public", ...pathList];
     }
     const key_s3 = key_list.join("/");
     console.log(key_s3);
@@ -151,18 +128,18 @@ const UserPage = () => {
   }, [selectedItem]);
 
   // create an async useEffect without any code inside it
-  useEffect(async () => {
-    const result = await checkAuthState();
-    console.log("result", result);
-    const { username } = result;
+  useEffect(() => {
+    Auth.currentCredentials().then((info) => {
+      const cognitoIdentityId = info.identityId;
+      console.log(cognitoIdentityId);
+    });
     const element = {
-      key: username,
+      key: userData.username,
       name: "",
       num_files: 3,
     };
     updatePath(element);
-  }, []);
-
+  }, [userData]);
   return (
     <>
       <div className="con-file-manager">

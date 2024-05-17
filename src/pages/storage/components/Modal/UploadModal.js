@@ -41,11 +41,9 @@ export default function UploadModal({ path, Refresh, type = "image" }) {
       const new_num = num_files + 1;
       // Iterate over each file in the 'files' array
       files.forEach(async (file) => {
-        const key_list = [userId, ...path, file.name];
-
+        const key_list = [...path, file.name];
         const key_mongo = path.join("/");
         const key_s3 = key_list.join("/");
-        console.log(key_s3);
 
         try {
           const res1 = await Storage.put(key_s3, file, {

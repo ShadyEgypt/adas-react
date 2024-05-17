@@ -40,8 +40,8 @@ export default function ShowModalUser({ element, disabled, path, Refresh }) {
     const key_mongo = path.join("/");
     const key_s3 = key_list.join("/");
     try {
-      // const res1 = await Storage.remove(key_s3);
-      // console.log(res1);
+      const res1 = await Storage.remove(key_s3);
+      console.log(res1);
 
       const res2 = await uFilesAPI.deleteFile(
         element.id,
