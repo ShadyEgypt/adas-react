@@ -201,7 +201,7 @@ const ModelsScreens = () => {
             <h3 className="step-title">Select a file</h3>
             <TestStorage
               type={type}
-              setType={(val) => {
+              setFileSourceType={(val) => {
                 setFileType(val);
                 console.log(val);
               }}
@@ -237,6 +237,7 @@ const ModelsScreens = () => {
                   setSelectedElement(null);
                   setSelectedKey(null);
                   setType("");
+                  setFileType("BDD-dataset");
                 }}
                 name={"Back"}
                 width={150}
@@ -277,6 +278,9 @@ const ModelsScreens = () => {
                 isButton={true}
                 handleClick={() => {
                   setActiveStep(2);
+                  setSelectedElement(null);
+                  setSelectedKey(null);
+                  setFileType("BDD-dataset");
                 }}
                 name={"Back"}
                 width={150}

@@ -18,7 +18,12 @@ function withNavigation(Component) {
 }
 
 const ITEMS_PER_PAGE = 30;
-const TestPage = ({ type = "image", setElement, setParentKey, setType }) => {
+const TestPage = ({
+  type = "image",
+  setElement,
+  setParentKey,
+  setFileSourceType,
+}) => {
   const [isFirstMount, setIsFirstMount] = useState(true);
   const defaultPathList =
     type === "image"
@@ -30,8 +35,9 @@ const TestPage = ({ type = "image", setElement, setParentKey, setType }) => {
       : "BDD-dataset/videos/test/";
   const num_files = type === "image" ? 300 : 10;
   const context = useContext(AuthContext);
-  const { mongoId, username, name, userId } = context;
+  const { mongoId, username, name } = context;
   const [isLoading, setIsLoading] = useState(false);
+  const [fileType, setFileType] = useState("BDD-dataset");
   const [path, setPath] = useState(defaultPath);
   const [selectedItem, setSelectedItem] = useState({
     key: path,
@@ -91,6 +97,7 @@ const TestPage = ({ type = "image", setElement, setParentKey, setType }) => {
 
   const fetchFilesUser = async function (mongoId, page = 1, path) {
     setIsLoading(true);
+    console.log("users images path ", path);
     try {
       const res = await uFilesAPI.getFiles(mongoId, page, path);
       const files = res.data.uFiles;
@@ -115,10 +122,7 @@ const TestPage = ({ type = "image", setElement, setParentKey, setType }) => {
 
   useEffect(() => {
     console.log("selected page", selectedPage);
-    if (
-      path === "BDD-dataset/images/100k/test/" ||
-      "BDD-dataset/videos/test/"
-    ) {
+    if (fileType === "BDD-dataset") {
       fetchFilesBDD(selectedPage, path);
     } else {
       fetchFilesUser(mongoId, selectedPage, path);
@@ -137,9 +141,34 @@ const TestPage = ({ type = "image", setElement, setParentKey, setType }) => {
   }, [type]);
 
   useEffect(() => {
+    if (type === "image") {
+      if (fileType === "BDD-dataset") {
+        setPath("BDD-dataset/images/100k/test/");
+        setPathList(["BDD-dataset", "images", "100k", "test"]);
+      } else {
+        setPath(`${username}/images/`);
+        setPathList([`${username}`, "images"]);
+      }
+    } else if (type === "video") {
+      if (fileType === "BDD-dataset") {
+        setPath("BDD-dataset/videos/test/");
+        setPathList(["BDD-dataset", "videos", "test"]);
+      } else {
+        setPath(`${username}/videos/`);
+        setPathList([`${username}`, "videos"]);
+      }
+    }
+    if (fileType === "BDD-dataset") {
+      setFileSourceType("BDD-dataset");
+    } else {
+      setFileSourceType("user");
+    }
+  }, [fileType]);
+
+  useEffect(() => {
     console.log(selectedItem);
     let key_list;
-    if (pathList[0] === "BDD-dataset") {
+    if (fileType === "BDD-dataset") {
       if (selectedItem !== null) {
         key_list = [...pathList, selectedItem.name];
       } else {
@@ -147,9 +176,9 @@ const TestPage = ({ type = "image", setElement, setParentKey, setType }) => {
       }
     } else {
       if (selectedItem !== null) {
-        key_list = ["public", userId, ...pathList, selectedItem.name];
+        key_list = ["public", ...pathList, selectedItem.name];
       } else {
-        key_list = ["public", userId, ...pathList];
+        key_list = ["public", ...pathList];
       }
     }
 
@@ -165,7 +194,7 @@ const TestPage = ({ type = "image", setElement, setParentKey, setType }) => {
           <div className="con-top">
             <FoldersSideBar
               setType={(val) => {
-                setType(val);
+                setFileType(val);
                 console.log(val);
               }}
               defaultId={1}
