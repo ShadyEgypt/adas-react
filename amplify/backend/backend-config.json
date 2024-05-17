@@ -139,6 +139,30 @@
           "resourceName": "amplifyhosting"
         }
       ]
+    },
+    "AMPLIFY_storage_adasreactb1307bf9_bucketName": {
+      "usedBy": [
+        {
+          "category": "storage",
+          "resourceName": "adasreactb1307bf9"
+        }
+      ]
+    },
+    "AMPLIFY_storage_adasreactb1307bf9_region": {
+      "usedBy": [
+        {
+          "category": "storage",
+          "resourceName": "adasreactb1307bf9"
+        }
+      ]
+    }
+  },
+  "storage": {
+    "adasreactb1307bf9": {
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "S3",
+      "serviceType": "imported"
     }
   }
 }

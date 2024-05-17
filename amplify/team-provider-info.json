@@ -34,6 +34,12 @@
       "auth": {
         "adasreact1716817517168175": {},
         "userPoolGroups": {}
+      },
+      "storage": {
+        "adasreactb1307bf9": {
+          "bucketName": "adas-project-bucket",
+          "region": "eu-north-1"
+        }
       }
     }
   }
