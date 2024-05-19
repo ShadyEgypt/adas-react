@@ -13,7 +13,7 @@ function withNavigation(Component) {
 const Home = () => {
   const context = useContext(AuthContext);
 
-  const { name, username, userId, mongoId } = context;
+  const { name, username, cognitoId, mongoId } = context;
 
   return (
     <>
