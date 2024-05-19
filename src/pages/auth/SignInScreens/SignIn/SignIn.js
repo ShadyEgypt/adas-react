@@ -39,7 +39,7 @@ const SignInScreen = ({ changeScreen }) => {
           context.setContextState({
             isLoggedIn: true,
             mongoId: id,
-            userId: signInOutput.attributes.sub,
+            cognitoId: signInOutput.attributes.sub,
             name: name,
             username: username,
           });
