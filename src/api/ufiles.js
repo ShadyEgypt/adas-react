@@ -327,112 +327,112 @@ export const uFilesAPI = {
       num_files: 0,
     };
     const res6 = await this.createFile(uFileInput);
-    /* shady/results/images/yolov8---------------------------- */
+    /* shady/results/images/YoloV8 Road Segmentation Model---------------------------- */
     uFileInput = {
       userId: id,
       type: "folder",
       key: `${username}/results/images/`,
-      name: "yolov8",
+      name: "YoloV8 Road Segmentation Model",
       num_files: 0,
     };
     const res7 = await this.createFile(uFileInput);
-    /* shady/results/images/yolov8-onnxruntime---------------- */
+    /* shady/results/images/YoloV8 Road Segmentation Optimized Model---------------- */
     uFileInput = {
       userId: id,
       type: "folder",
       key: `${username}/results/images/`,
-      name: "yolov8-onnxruntime",
+      name: "YoloV8 Road Segmentation Optimized Model",
       num_files: 0,
     };
     const res8 = await this.createFile(uFileInput);
-    /* shady/results/images/road-segmentation-adas-0001------- */
+    /* shady/results/images/Road Segmentation ADAS 0001------- */
     uFileInput = {
       userId: id,
       type: "folder",
       key: `${username}/results/images/`,
-      name: "road-segmentation-adas-0001",
+      name: "Road Segmentation ADAS 0001",
       num_files: 0,
     };
     const res9 = await this.createFile(uFileInput);
-    /* shady/results/images/semantic-segmentation-adas-0001--- */
+    /* shady/results/images/Semantic Segmentation ADAS 0001--- */
     uFileInput = {
       userId: id,
       type: "folder",
       key: `${username}/results/images/`,
-      name: "semantic-segmentation-adas-0001",
+      name: "Semantic Segmentation ADAS 0001",
       num_files: 0,
     };
     const res10 = await this.createFile(uFileInput);
-    /* shady/results/images/pedestrian-and-vehicle-detector--- */
+    /* shady/results/images/Pedestrian and Vehicle Detector ADAS 0001--- */
     uFileInput = {
       userId: id,
       type: "folder",
       key: `${username}/results/images/`,
-      name: "pedestrian-and-vehicle-detector",
+      name: "Pedestrian and Vehicle Detector ADAS 0001",
       num_files: 0,
     };
     const res11 = await this.createFile(uFileInput);
-    /* shady/results/images/person-vehicle-bike-detector------ */
+    /* shady/results/images/Person Vehicle Bike Detection Crossroad 0078------ */
     uFileInput = {
       userId: id,
       type: "folder",
       key: `${username}/results/images/`,
-      name: "person-vehicle-bike-detector",
+      name: "Person Vehicle Bike Detection Crossroad 0078",
       num_files: 0,
     };
     const res12 = await this.createFile(uFileInput);
 
-    /* shady/results/videos/yolov8---------------------------- */
+    /* shady/results/videos/YoloV8 Road Segmentation Model---------------------------- */
     uFileInput = {
       userId: id,
       type: "folder",
       key: `${username}/results/videos/`,
-      name: "yolov8",
+      name: "YoloV8 Road Segmentation Model",
       num_files: 0,
     };
     const res13 = await this.createFile(uFileInput);
-    /* shady/results/videos/yolov8-onnxruntime---------------- */
+    /* shady/results/videos/YoloV8 Road Segmentation Optimized Model---------------- */
     uFileInput = {
       userId: id,
       type: "folder",
       key: `${username}/results/videos/`,
-      name: "yolov8-onnxruntime",
+      name: "YoloV8 Road Segmentation Optimized Model",
       num_files: 0,
     };
     const res14 = await this.createFile(uFileInput);
-    /* shady/results/videos/road-segmentation-adas-0001------- */
+    /* shady/results/videos/Road Segmentation ADAS 0001------- */
     uFileInput = {
       userId: id,
       type: "folder",
       key: `${username}/results/videos/`,
-      name: "road-segmentation-adas-0001",
+      name: "Road Segmentation ADAS 0001",
       num_files: 0,
     };
     const res15 = await this.createFile(uFileInput);
-    /* shady/results/videos/semantic-segmentation-adas-0001--- */
+    /* shady/results/videos/Semantic Segmentation ADAS 0001--- */
     uFileInput = {
       userId: id,
       type: "folder",
       key: `${username}/results/videos/`,
-      name: "semantic-segmentation-adas-0001",
+      name: "Semantic Segmentation ADAS 0001",
       num_files: 0,
     };
     const res16 = await this.createFile(uFileInput);
-    /* shady/results/videos/pedestrian-and-vehicle-detector--- */
+    /* shady/results/videos/Pedestrian and Vehicle Detector ADAS 0001--- */
     uFileInput = {
       userId: id,
       type: "folder",
       key: `${username}/results/videos/`,
-      name: "pedestrian-and-vehicle-detector",
+      name: "Pedestrian and Vehicle Detector ADAS 0001",
       num_files: 0,
     };
     const res17 = await this.createFile(uFileInput);
-    /* shady/results/videos/person-vehicle-bike-detector------ */
+    /* shady/results/videos/Person Vehicle Bike Detection Crossroad 0078------ */
     uFileInput = {
       userId: id,
       type: "folder",
       key: `${username}/results/videos/`,
-      name: "person-vehicle-bike-detector",
+      name: "Person Vehicle Bike Detection Crossroad 0078",
       num_files: 0,
     };
     const res18 = await this.createFile(uFileInput);
