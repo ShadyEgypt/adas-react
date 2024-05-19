@@ -23,10 +23,12 @@ function withNavigation(Component) {
   };
 }
 const ITEMS_PER_PAGE = 30;
-const UserPage = ({ userInfo }) => {
-  const [userData, setUserData] = useState(userInfo);
+const UserPage = () => {
+  const context = useContext(AuthContext);
+
+  const { name, username, cognitoId, mongoId } = context;
   const [isLoading, setIsLoading] = useState(false);
-  const [path, setPath] = useState("username");
+  const [path, setPath] = useState(`${username}/`);
   const [selectedItem, setSelectedItem] = useState({
     key: "username",
     first: true,
@@ -36,12 +38,12 @@ const UserPage = ({ userInfo }) => {
   const [dynamicElement, setDynamicElement] = useState(null);
   const [dynamicModal, setDynamicModal] = useState(null);
   const [key, setKey] = useState("");
-  const [pathList, setPathList] = useState([`${userData.username}`]);
+  const [pathList, setPathList] = useState([`${username}`]);
   const [open, setOpen] = useState(false);
   const [uploadState, setUploadState] = useState(false);
   const [removeState, setRemoveState] = useState(true);
 
-  const foldersTree = uFilesAPI.getTree(userData.username, userData.name);
+  const foldersTree = uFilesAPI.getTree(username, name);
 
   const updatePath = async (element) => {
     const { name, key, num_files } = element;
@@ -65,12 +67,12 @@ const UserPage = ({ userInfo }) => {
     setSelectedItem(value);
   };
 
-  const fetchFiles = async function (mongoId, page = 1, path) {
+  const fetchFiles = async function (text, page = 1, path) {
     setIsLoading(true);
     try {
       const res = await uFilesAPI.getFiles(mongoId, page, path);
       const files = res.data.uFiles;
-      console.log("files fetched: ", files);
+      console.log(`files fetched from ${text}: `, files);
       setDynamicElement(files);
     } catch (error) {
       // Handle error if needed
@@ -111,8 +113,12 @@ const UserPage = ({ userInfo }) => {
   };
 
   useEffect(() => {
-    fetchFiles(userData.mongoId, selectedPage, path);
-  }, [selectedPage, path]);
+    const fetchData = async () => {
+      await fetchFiles("use effect", selectedPage, path);
+    };
+
+    fetchData();
+  }, [path, selectedPage]);
 
   useEffect(() => {
     console.log(selectedItem);
@@ -129,17 +135,13 @@ const UserPage = ({ userInfo }) => {
 
   // create an async useEffect without any code inside it
   useEffect(() => {
-    Auth.currentCredentials().then((info) => {
-      const cognitoIdentityId = info.identityId;
-      console.log(cognitoIdentityId);
-    });
     const element = {
-      key: userData.username,
+      key: username,
       name: "",
       num_files: 3,
     };
     updatePath(element);
-  }, [userData]);
+  }, [username]);
   return (
     <>
       <div className="con-file-manager">
@@ -150,7 +152,13 @@ const UserPage = ({ userInfo }) => {
               <PathBar pathList={pathList} />
             </div>
             <div className="con-methods">
-              <Stack spacing={2} direction="row">
+              <Stack
+                spacing={1}
+                direction="row"
+                sx={{
+                  alignItems: "center",
+                }}
+              >
                 <ShowModalUser
                   className="modal"
                   element={dynamicModal}
@@ -165,7 +173,7 @@ const UserPage = ({ userInfo }) => {
                   path={pathList}
                   disabled={removeState}
                   Refresh={() => {
-                    fetchFiles(userData.mongoId, selectedPage, path);
+                    fetchFiles("remove", selectedPage, path);
                   }}
                 />
 
@@ -173,14 +181,15 @@ const UserPage = ({ userInfo }) => {
                   className="modal"
                   path={pathList}
                   Refresh={() => {
-                    fetchFiles(userData.mongoId, selectedPage, path);
+                    fetchFiles("upload", selectedPage, path);
                   }}
                 />
                 <IconButton
                   aria-label="refresh"
                   onClick={() => {
-                    fetchFiles(userData.mongoId, selectedPage, path);
+                    fetchFiles("refresh icon", selectedPage, path);
                   }}
+                  sx={{ padding: 0 }}
                 >
                   <AutorenewIcon />
                 </IconButton>
