@@ -1,4 +1,8 @@
 .path-bar {
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  padding-right: 10px;
   .spacer,
   .item,
   .word {
