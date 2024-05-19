@@ -122,7 +122,21 @@ export default function ShowModalUser({
 
   return (
     <div className="modal_image">
-      <Button disabled={disabled} variant="contained" onClick={handleOpen}>
+      <Button
+        disabled={disabled}
+        variant="contained"
+        onClick={handleOpen}
+        sx={{
+          width: 80,
+          height: 25,
+          fontSize: "12px",
+          backgroundColor: "#00ADB5",
+          color: "#fff",
+          "&:hover": {
+            backgroundColor: "#00ADB5",
+          },
+        }}
+      >
         Show
       </Button>
       <Modal
