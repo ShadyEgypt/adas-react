@@ -14,14 +14,16 @@ function withNavigation(Component) {
 }
 const SegmentImages = ({
   fileType = "BDD-dataset",
+  type,
   selectedElement,
   selectedKey,
   model,
+  modelName,
 }) => {
   const [loading, setLoading] = useState(true);
   const [result, setResult] = useState(null);
   const [open, setOpen] = useState(false);
-
+  const [outputKey, setOutputKey] = useState("");
   const context = useContext(AuthContext);
 
   const { name, username, userId, mongoId } = context;
@@ -42,6 +44,8 @@ const SegmentImages = ({
     setResult(null);
   };
   useEffect(() => {
+    const pathList = ["results", `${type}s`, modelName, selectedElement.name];
+    setOutputKey(pathList.join("/"));
     handleOpen();
   }, []);
   // const predictYoloV8 = async () => {
@@ -107,10 +111,9 @@ const SegmentImages = ({
         <>
           <h3 className="step-title">Wait a few seconds</h3>
           <span className="spacer">{fileType}</span>
+          <span className="spacer">{type}</span>
           <span className="spacer">{selectedKey}</span>
-          <span className="spacer">{selectedElement.name}</span>
-          <span className="spacer">{selectedElement.key}</span>
-          <span className="spacer">{model}</span>
+          <span className="spacer">{outputKey}</span>
           <CircularProgress />
         </>
       ) : (
