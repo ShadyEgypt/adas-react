@@ -8,7 +8,7 @@ import { Auth } from "aws-amplify";
 import { AuthContext } from "../../../../context/auth-context";
 import { UsersAPI } from "../../../../api/users";
 import { uFilesAPI } from "../../../../api/ufiles";
-const SignInScreen = ({ changeScreen, setUserInformation }) => {
+const SignInScreen = ({ changeScreen }) => {
   const [loading, setLoading] = useState(false);
   const context = useContext(AuthContext);
 
@@ -43,13 +43,6 @@ const SignInScreen = ({ changeScreen, setUserInformation }) => {
             name: name,
             username: username,
           });
-          const result = {
-            name,
-            username,
-            mongoId: id,
-            congnitoId: signInOutput.attributes.sub,
-          };
-          setUserInformation(result);
           changeScreen("home");
         } catch (err) {
           console.log(err);
