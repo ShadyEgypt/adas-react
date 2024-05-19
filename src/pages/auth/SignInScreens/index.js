@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 const SignInScreens = ({ updateLoggedIn }) => {
   const navigate = useNavigate();
   const [activeScreen, setActiveScreen] = useState("signin");
-  const [userInfo, setUserInfo] = useState({});
   const handleRouting = (val) => {
     if (val === "home") {
       updateLoggedIn(val);
@@ -21,10 +20,7 @@ const SignInScreens = ({ updateLoggedIn }) => {
   return (
     <>
       {activeScreen === "signin" ? (
-        <SignInScreen
-          changeScreen={handleRouting}
-          setUserInformation={setUserInfo}
-        />
+        <SignInScreen changeScreen={handleRouting} />
       ) : activeScreen === "forgot" ? (
         <ForgotPassword changeScreen={handleRouting} />
       ) : activeScreen === "new" ? (
