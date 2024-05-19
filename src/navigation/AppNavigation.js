@@ -18,7 +18,6 @@ import UserStorage from "../pages/storage/user-storage/UserStorage";
 import ModelsScreens from "../pages/models/index";
 
 function AppNav() {
-  const [userInfo, setUserInfo] = useState({});
   const navigate = useNavigate();
   const context = useContext(AuthContext);
   const { isLoggedIn, setContextState } = context;
@@ -49,7 +48,6 @@ function AppNav() {
           mongoId: id,
           congnitoId: resCognito.attributes.sub,
         };
-        setUserInfo(result);
         setContextState({
           isLoggedIn: true,
           mongoId: id,
@@ -158,7 +156,7 @@ function AppNav() {
             path="/user-data"
             element={
               isLoggedInState !== undefined && isLoggedInState === true ? (
-                <UserStorage userInfo={userInfo} />
+                <UserStorage />
               ) : (
                 <Navigate to="/signin" replace />
               )

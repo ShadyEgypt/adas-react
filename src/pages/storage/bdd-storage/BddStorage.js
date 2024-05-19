@@ -83,15 +83,7 @@ const BddPage = () => {
     };
 
     fetchData();
-  }, [path]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      await fetchFiles(selectedPage, path);
-    };
-
-    fetchData();
-  }, [selectedPage]);
+  }, [path, selectedPage]);
 
   const updateStates = async function (selectedItem) {
     setDynamicModal(selectedItem);
@@ -125,13 +117,21 @@ const BddPage = () => {
               <PathBar pathList={pathList} />
             </div>
             <div className="con-methods">
-              <ShowModal
-                className="modal"
-                element={dynamicModal}
-                open={open}
-                disabled={disableState}
-                handleModal={handleModal}
-              />{" "}
+              <Stack
+                spacing={1}
+                direction="row"
+                sx={{
+                  alignItems: "center",
+                }}
+              >
+                <ShowModal
+                  className="modal"
+                  element={dynamicModal}
+                  open={open}
+                  disabled={disableState}
+                  handleModal={handleModal}
+                />
+              </Stack>
             </div>
           </div>
         </div>

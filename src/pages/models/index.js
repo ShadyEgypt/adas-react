@@ -23,16 +23,16 @@ const ModelsScreens = () => {
         setModelName("YoloV8 Road Segmentation Optimized Model");
         break;
       case "adas-semantic-1":
-        setModelName("road-segmentation-adas-0001");
+        setModelName("Road Segmentation ADAS 0001");
         break;
       case "adas-semantic-2":
-        setModelName("semantic-segmentation-adas-0001");
+        setModelName("Semantic Segmentation ADAS 0001");
         break;
       case "adas-object-1":
-        setModelName("pedestrian-and-vehicle-detector-adas-0001");
+        setModelName("Pedestrian and Vehicle Detector ADAS 0001");
         break;
       case "adas-object-2":
-        setModelName("person-vehicle-bike-detection-crossroad-0078");
+        setModelName("Person Vehicle Bike Detection Crossroad 0078");
         break;
       default:
         break;
@@ -76,7 +76,7 @@ const ModelsScreens = () => {
                 handleClick={() => {
                   handleClick("adas-semantic-1");
                 }}
-                name={"road-segmentation-adas-0001"}
+                name={"Road Segmentation ADAS 0001"}
                 screen={"adas-semantic-1"}
               />
               <HoverableDiv
@@ -84,7 +84,7 @@ const ModelsScreens = () => {
                 handleClick={() => {
                   handleClick("adas-semantic-2");
                 }}
-                name={"semantic-segmentation-adas-0001"}
+                name={"Semantic Segmentation ADAS 0001"}
                 screen={"adas-semantic-2"}
               />
               <h4 className="models-group-title">
@@ -95,7 +95,7 @@ const ModelsScreens = () => {
                 handleClick={() => {
                   handleClick("adas-object-1");
                 }}
-                name={"pedestrian-and-vehicle-detector-adas-0001"}
+                name={"Pedestrian and Vehicle Detector ADAS 0001"}
                 screen={"adas-object-1"}
               />
               <HoverableDiv
@@ -103,7 +103,7 @@ const ModelsScreens = () => {
                 handleClick={() => {
                   handleClick("adas-object-2");
                 }}
-                name={"person-vehicle-bike-detection-crossroad-0078"}
+                name={"Person Vehicle Bike Detection Crossroad 0078"}
                 screen={"adas-object-2"}
               />
             </div>
@@ -301,9 +301,11 @@ const ModelsScreens = () => {
             <>
               <SegmentImages
                 fileType={fileType}
+                type={type}
                 selectedElement={selectedElement}
                 selectedKey={selectedKey}
                 model={selectedModel}
+                modelName={modelName}
               />
             </>
           ) : (
