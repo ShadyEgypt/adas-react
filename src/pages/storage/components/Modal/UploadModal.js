@@ -107,7 +107,20 @@ export default function UploadModal({ path, Refresh, type = "image" }) {
 
   return (
     <div className="modal_image">
-      <Button variant="contained" onClick={handleOpen}>
+      <Button
+        variant="contained"
+        onClick={handleOpen}
+        sx={{
+          width: 80,
+          height: 25,
+          fontSize: "12px",
+          backgroundColor: "#00ADB5",
+          color: "#fff",
+          "&:hover": {
+            backgroundColor: "#00ADB5",
+          },
+        }}
+      >
         Upload
       </Button>
       <Modal

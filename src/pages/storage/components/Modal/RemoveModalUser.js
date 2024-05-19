@@ -5,6 +5,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
 import { uFilesAPI } from "../../../../api/ufiles";
 import { AuthContext } from "../../../../context/auth-context";
 import { Storage } from "aws-amplify";
@@ -58,9 +59,24 @@ export default function ShowModalUser({ element, disabled, path, Refresh }) {
 
   return (
     <div className="modal_image">
-      <Button disabled={disabled} variant="contained" onClick={handleClickOpen}>
+      <Button
+        disabled={disabled}
+        variant="contained"
+        onClick={handleClickOpen}
+        sx={{
+          width: 80,
+          height: 25,
+          fontSize: "12px",
+          backgroundColor: "#00ADB5",
+          color: "#fff",
+          "&:hover": {
+            backgroundColor: "#00ADB5",
+          },
+        }}
+      >
         Remove
       </Button>
+
       <Dialog
         open={open}
         onClose={handleClose}
