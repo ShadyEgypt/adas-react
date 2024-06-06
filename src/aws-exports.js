@@ -3,10 +3,10 @@
 
 const awsmobile = {
     "aws_project_region": "eu-north-1",
-    "aws_cognito_identity_pool_id": "eu-north-1:bb1efbb0-cce8-4671-a4f3-c73e80755a64",
+    "aws_cognito_identity_pool_id": "eu-north-1:4938e9e0-3d2a-4979-8392-73be72af4efd",
     "aws_cognito_region": "eu-north-1",
-    "aws_user_pools_id": "eu-north-1_dS5mBE7DN",
-    "aws_user_pools_web_client_id": "5f3ipg6gen8fapv4tnc9t3ok3v",
+    "aws_user_pools_id": "eu-north-1_b0vwExGOA",
+    "aws_user_pools_web_client_id": "26vhn57jv3890s635tp7i12enk",
     "oauth": {},
     "aws_cognito_username_attributes": [],
     "aws_cognito_social_providers": [],
@@ -19,7 +19,7 @@ const awsmobile = {
         "SMS"
     ],
     "aws_cognito_password_protection_settings": {
-        "passwordPolicyMinLength": " 8",
+        "passwordPolicyMinLength": 8,
         "passwordPolicyCharacters": [
             "REQUIRES_LOWERCASE",
             "REQUIRES_UPPERCASE",
@@ -29,9 +29,7 @@ const awsmobile = {
     },
     "aws_cognito_verification_mechanisms": [
         "EMAIL"
-    ],
-    "aws_user_files_s3_bucket": "adas-project-bucket",
-    "aws_user_files_s3_bucket_region": "eu-north-1"
+    ]
 };
 
 

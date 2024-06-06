@@ -2,7 +2,7 @@ import React from "react";
 import { useContext, useState, useEffect } from "react";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth-context";
-import { Auth } from "aws-amplify";
+import { getCurrentUser } from "aws-amplify/auth";
 import { UsersAPI } from "../api/users";
 import NavBar from "../components/NavBar";
 import SideBar from "../components/SideBar";
@@ -36,22 +36,22 @@ function AppNav() {
   useEffect(() => {
     const checkAuthState = async () => {
       try {
-        const resCognito = await Auth.currentAuthenticatedUser();
+        const resCognito = await getCurrentUser();
         console.log(resCognito);
 
-        const resMongo = await UsersAPI.getUser(resCognito.attributes.sub);
+        const resMongo = await UsersAPI.getUser(resCognito.userId);
         console.log(resMongo);
         const { name, username, id } = resMongo;
         const result = {
           name,
           username,
           mongoId: id,
-          congnitoId: resCognito.attributes.sub,
+          congnitoId: resCognito.userId,
         };
         setContextState({
           isLoggedIn: true,
           mongoId: id,
-          cognitoId: resCognito.attributes.sub,
+          cognitoId: resCognito.userId,
           name: name,
           username: username,
         });

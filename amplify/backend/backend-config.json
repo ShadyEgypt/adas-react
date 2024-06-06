@@ -1,6 +1,6 @@
 {
   "auth": {
-    "adasreact": {
+    "adasReactResource": {
       "customAuth": false,
       "dependsOn": [],
       "frontendAuthConfig": {
@@ -15,7 +15,7 @@
             "REQUIRES_NUMBERS",
             "REQUIRES_SYMBOLS"
           ],
-          "passwordPolicyMinLength": " 8"
+          "passwordPolicyMinLength": 8
         },
         "signupAttributes": [
           "EMAIL",
@@ -29,32 +29,6 @@
       },
       "providerPlugin": "awscloudformation",
       "service": "Cognito"
-    }
-  },
-  "parameters": {
-    "AMPLIFY_storage_adasreact5a682759_bucketName": {
-      "usedBy": [
-        {
-          "category": "storage",
-          "resourceName": "adasreact5a682759"
-        }
-      ]
-    },
-    "AMPLIFY_storage_adasreact5a682759_region": {
-      "usedBy": [
-        {
-          "category": "storage",
-          "resourceName": "adasreact5a682759"
-        }
-      ]
-    }
-  },
-  "storage": {
-    "adasreact5a682759": {
-      "dependsOn": [],
-      "providerPlugin": "awscloudformation",
-      "service": "S3",
-      "serviceType": "imported"
     }
   }
 }

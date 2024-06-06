@@ -3,7 +3,7 @@ import CustomInput from "../../../../components/CustomInput";
 import CustomButton from "../../../../components/CustomButton";
 import { useForm } from "react-hook-form";
 import { useNavigate, useLocation } from "react-router-dom"; // Import useLocation
-import { Auth } from "aws-amplify";
+import { confirmSignUp, resendSignUpCode } from "aws-amplify/auth";
 import { UsersAPI } from "../../../../api/users";
 import { uFilesAPI } from "../../../../api/ufiles";
 import "./ConfirmEmail.css";
@@ -23,10 +23,16 @@ const ConfirmEmail = ({ changeScreen, args }) => {
 
   const onConfirmPressed = async (data) => {
     try {
-      const confirmEmailOutput = await Auth.confirmSignUp(username, data.code);
+      const confirmEmailOutput = await confirmSignUp({
+        username,
+        confirmationCode: data.code,
+      });
       console.log(confirmEmailOutput);
 
-      if (confirmEmailOutput === "SUCCESS") {
+      if (
+        confirmEmailOutput.isSignUpComplete !== undefined &&
+        confirmEmailOutput.isSignUpComplete
+      ) {
         const res1 = await UsersAPI.createUser(userInput);
         console.log(res1);
         const { username, id } = res1;
@@ -36,7 +42,7 @@ const ConfirmEmail = ({ changeScreen, args }) => {
       }
     } catch (error) {
       console.error("Error confirming sign up or creating user", error);
-      if (error.__type == "CodeMismatchException") {
+      if (error.__type === "CodeMismatchException") {
         console.warn(error.message);
       }
     }
@@ -49,7 +55,7 @@ const ConfirmEmail = ({ changeScreen, args }) => {
   const onResendPress = async () => {
     try {
       console.log();
-      let res = await Auth.resendSignUp(username);
+      let res = await resendSignUpCode({ username });
       console.log(res);
     } catch (error) {
       console.error("Error resending code", error);

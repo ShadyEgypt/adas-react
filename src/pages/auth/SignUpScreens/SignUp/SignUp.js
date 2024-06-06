@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { Auth } from "aws-amplify";
+import { signUp } from "aws-amplify/auth";
 import Logo from "../../../../components/Logo/Logo";
 import "./SignUp.scss"; // Import the CSS file
 
@@ -26,12 +26,14 @@ const SignUpScreen = ({ changeScreen }) => {
       const { name, password, email, username } = data;
       console.log(name);
       console.log(username);
-      const response = await Auth.signUp({
+      const response = await signUp({
         username,
         password,
-        attributes: {
-          email,
-          preferred_username: username,
+        options: {
+          userAttributes: {
+            email,
+            preferred_username: username,
+          },
         },
       });
       changeScreen("confirm", {
@@ -40,7 +42,7 @@ const SignUpScreen = ({ changeScreen }) => {
           userInput: {
             name,
             username,
-            cognitoId: response.userSub,
+            cognitoId: response.userId,
             email,
             tokens: 100,
           },

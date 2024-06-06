@@ -4,7 +4,7 @@ import Logo from "../../../../components/Logo/Logo";
 import CustomInput from "../../../../components/CustomInput";
 import CustomButton from "../../../../components/CustomButton";
 import { useForm } from "react-hook-form";
-import { Auth } from "aws-amplify";
+import { signIn, signOut, getCurrentUser } from "aws-amplify/auth";
 import { AuthContext } from "../../../../context/auth-context";
 import { UsersAPI } from "../../../../api/users";
 import { uFilesAPI } from "../../../../api/ufiles";
@@ -24,14 +24,15 @@ const SignInScreen = ({ changeScreen }) => {
     }
     setLoading(true);
     try {
-      await Auth.signOut();
+      await signOut();
       const username = data.username;
       const password = data.password;
-      const signInOutput = await Auth.signIn(username, password);
+      const signInOutput = await signIn({ username, password });
       console.log(signInOutput);
-      if (signInOutput.attributes.sub !== null) {
+      if (signInOutput.isSignedIn !== null && signInOutput.isSignedIn) {
         try {
-          const res = await UsersAPI.getUser(signInOutput.attributes.sub);
+          const resCognito = await getCurrentUser();
+          const res = await UsersAPI.getUser(resCognito.userId);
           console.log(res);
           const { name, username, id } = res;
           console.log(name, username, id);
@@ -39,21 +40,21 @@ const SignInScreen = ({ changeScreen }) => {
           context.setContextState({
             isLoggedIn: true,
             mongoId: id,
-            cognitoId: signInOutput.attributes.sub,
+            cognitoId: resCognito.userId,
             name: name,
             username: username,
           });
           changeScreen("home");
         } catch (err) {
           console.log(err);
-          Auth.signOut();
+          await signOut();
         }
       } else {
         console.log("Sign-in was not successful");
       }
     } catch (e) {
       console.log("Opps", e.message);
-      Auth.signOut();
+      await signOut();
     } finally {
       setLoading(false);
     }

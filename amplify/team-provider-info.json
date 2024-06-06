@@ -1,25 +1,19 @@
 {
   "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-adasreact-dev-86c36-authRole",
-      "UnauthRoleArn": "arn:aws:iam::141178960309:role/amplify-adasreact-dev-86c36-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::141178960309:role/amplify-adasreact-dev-86c36-authRole",
+      "AuthRoleName": "amplify-adasreact-dev-39542-authRole",
+      "UnauthRoleArn": "arn:aws:iam::141178960309:role/amplify-adasreact-dev-39542-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::141178960309:role/amplify-adasreact-dev-39542-authRole",
       "Region": "eu-north-1",
-      "DeploymentBucketName": "amplify-adasreact-dev-86c36-deployment",
-      "UnauthRoleName": "amplify-adasreact-dev-86c36-unauthRole",
-      "StackName": "amplify-adasreact-dev-86c36",
-      "StackId": "arn:aws:cloudformation:eu-north-1:141178960309:stack/amplify-adasreact-dev-86c36/588f9500-1487-11ef-82ad-0607b50b4a85",
-      "AmplifyAppId": "dtmkz3658sw1o"
+      "DeploymentBucketName": "amplify-adasreact-dev-39542-deployment",
+      "UnauthRoleName": "amplify-adasreact-dev-39542-unauthRole",
+      "StackName": "amplify-adasreact-dev-39542",
+      "StackId": "arn:aws:cloudformation:eu-north-1:141178960309:stack/amplify-adasreact-dev-39542/ba390f60-2450-11ef-a276-064f209afb81",
+      "AmplifyAppId": "d3vsj8fuw74voz"
     },
     "categories": {
       "auth": {
-        "adasreact": {}
-      },
-      "storage": {
-        "adasreact5a682759": {
-          "bucketName": "adas-project-bucket",
-          "region": "eu-north-1"
-        }
+        "adasReactResource": {}
       }
     }
   }

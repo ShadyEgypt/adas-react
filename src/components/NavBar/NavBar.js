@@ -2,14 +2,14 @@ import "./navbar.scss";
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { AuthContext } from "../../context/auth-context";
-import { Auth } from "aws-amplify";
+import { signOut } from "aws-amplify/auth";
 
 const NavBar = ({ isLoggedInState, updateLoggedIn }) => {
   const context = useContext(AuthContext);
   const navigate = useNavigate();
   async function handleSignOut() {
     try {
-      await Auth.signOut();
+      await signOut();
     } catch (error) {
       console.log("error signing out: ", error);
     }

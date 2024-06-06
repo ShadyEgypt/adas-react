@@ -1,17 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ArcProgress from "../../components/ArcProgress/ArcProgress";
 
 const Temp = (props) => {
   const { score } = props;
+  const [color, setColor] = useState("");
+  const start_val = 0;
+  const end_val = 50;
+  const calcColor = (percent) => {
+    const absolute_scaled_score = Math.floor(
+      (percent / (end_val - start_val)) * 100
+    );
+    console.log(absolute_scaled_score);
+    let a = absolute_scaled_score;
+    if (a === 0) {
+      setColor("#000");
+    } else if (a > 60) {
+      setColor("#c84d37");
+    } else {
+      setColor("#37c87b");
+    }
+  };
+  useEffect(() => {
+    calcColor(score);
+  }, [score]);
   return (
     <ArcProgress
       score={score}
       title={"Temperature"}
       unit={"\u00B0C"}
-      start_val={10}
-      end_val={50}
-      start_color={148}
-      end_color={0}
+      start_val={start_val}
+      end_val={end_val}
+      color={color}
     />
   );
 };

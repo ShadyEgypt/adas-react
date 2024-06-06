@@ -8,7 +8,7 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import { uFilesAPI } from "../../../../api/ufiles";
 import { AuthContext } from "../../../../context/auth-context";
-import { Storage } from "aws-amplify";
+import { remove } from "aws-amplify/storage";
 import "./modal.scss";
 
 export default function ShowModalUser({ element, disabled, path, Refresh }) {
@@ -41,7 +41,7 @@ export default function ShowModalUser({ element, disabled, path, Refresh }) {
     const key_mongo = path.join("/");
     const key_s3 = key_list.join("/");
     try {
-      const res1 = await Storage.remove(key_s3);
+      const res1 = await remove(key_s3);
       console.log(res1);
 
       const res2 = await uFilesAPI.deleteFile(

@@ -4,7 +4,8 @@ import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import { Amplify, Storage } from "aws-amplify";
+import { uploadData } from "aws-amplify/storage";
+import { Amplify } from "aws-amplify";
 import amplifyConfig from "../../../../amplifyconfiguration.json";
 import DropFileInput from "../../../../components/DropFileInput";
 import { uFilesAPI } from "../../../../api/ufiles";
@@ -46,9 +47,18 @@ export default function UploadModal({ path, Refresh, type = "image" }) {
         const key_s3 = key_list.join("/");
 
         try {
-          const res1 = await Storage.put(key_s3, file, {
-            contentType: `${type === "image" ? "image/png" : "video/mp4"}`,
-          });
+          // const res1 = await Storage.put(key_s3, file, {
+          //   contentType: `${type === "image" ? "image/png" : "video/mp4"}`,
+          // });
+          const res1 = await uploadData({
+            path: key_s3,
+            // Alternatively, path: ({identityId}) => `protected/${identityId}/album/2024/1.jpg`
+            data: file,
+            options: {
+              contentType: `${type === "image" ? "image/png" : "video/mp4"}`,
+              // onProgress, // Optional progress callback.
+            },
+          }).result;
           console.log(res1);
           const userInputs = {
             userId: mongoId,

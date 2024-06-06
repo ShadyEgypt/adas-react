@@ -1,10 +1,10 @@
 {
   "version": "1",
   "cognitoConfig": {
-    "identityPoolName": "adasreact_ip",
+    "identityPoolName": "adasReactIdentityPool",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "adasre24b2de97",
-    "userPoolName": "adasreact_up",
+    "resourceNameTruncated": "adasre4781665a",
+    "userPoolName": "adasReactUserPool",
     "autoVerifiedAttributes": [
       "email"
     ],
@@ -17,7 +17,7 @@
     "emailVerificationSubject": "Your verification code",
     "emailVerificationMessage": "Your verification code is {####}",
     "defaultPasswordPolicy": true,
-    "passwordPolicyMinLength": " 8",
+    "passwordPolicyMinLength": 8,
     "passwordPolicyCharacters": [
       "Requires Lowercase",
       "Requires Uppercase",
@@ -39,10 +39,10 @@
       "email",
       "preferred_username"
     ],
-    "userpoolClientLambdaRole": "adasre24b2de97_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "adasRe4781665a_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": true,
-    "sharedId": "24b2de97",
-    "resourceName": "adasreact",
+    "sharedId": "4781665a",
+    "resourceName": "adasReactResource",
     "authSelections": "identityPoolAndUserPool",
     "useDefault": "manual",
     "thirdPartyAuth": false,
