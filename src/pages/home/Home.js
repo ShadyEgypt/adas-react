@@ -2,7 +2,8 @@ import React, { Component, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/auth-context";
 import "./home.scss";
-import { uFilesAPI } from "../../api/ufiles";
+import Iot from "../iot/Iot";
+
 function withNavigation(Component) {
   return (props) => {
     const navigate = useNavigate();
@@ -18,7 +19,8 @@ const Home = () => {
   return (
     <>
       <div className="container-home">
-        <h1>Hi {username}!</h1>
+        {/* <h1>Hi {username}!</h1> */}
+        <Iot />
       </div>
     </>
   );
