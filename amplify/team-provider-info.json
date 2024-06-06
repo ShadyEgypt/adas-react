@@ -27,15 +27,21 @@
       "AmplifyAppId": "dtmkz3658sw1o"
     },
     "categories": {
+      "auth": {
+        "adasreact": {}
+      },
       "storage": {
         "adasreact5a682759": {
           "bucketName": "adas-project-bucket",
           "region": "eu-north-1"
         }
+<<<<<<< HEAD
       },
       "auth": {
         "adasreact": {}
 >>>>>>> 1347323 (local environment changes)
+=======
+>>>>>>> e9e1abd (amplify readme files)
       }
     }
   }
