@@ -1,6 +1,10 @@
 export type AmplifyDependentResourcesAttributes = {
   "auth": {
+<<<<<<< HEAD
     "adasReactResource": {
+=======
+    "adasreact": {
+>>>>>>> 1347323 (local environment changes)
       "AppClientID": "string",
       "AppClientIDWeb": "string",
       "IdentityPoolId": "string",
