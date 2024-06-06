@@ -1,18 +1,8 @@
 {
   "auth": {
-    "adasreact1716817517168175": {
+    "adasreact": {
       "customAuth": false,
-      "dependsOn": [
-        {
-          "attributes": [
-            "Arn",
-            "Name"
-          ],
-          "category": "function",
-          "resourceName": "adasreact1716817517168175PostConfirmation",
-          "triggerProvider": "Cognito"
-        }
-      ],
+      "dependsOn": [],
       "frontendAuthConfig": {
         "mfaConfiguration": "OFF",
         "mfaTypes": [
@@ -22,9 +12,10 @@
           "passwordPolicyCharacters": [
             "REQUIRES_LOWERCASE",
             "REQUIRES_UPPERCASE",
-            "REQUIRES_NUMBERS"
+            "REQUIRES_NUMBERS",
+            "REQUIRES_SYMBOLS"
           ],
-          "passwordPolicyMinLength": "8"
+          "passwordPolicyMinLength": " 8"
         },
         "signupAttributes": [
           "EMAIL",
@@ -38,127 +29,28 @@
       },
       "providerPlugin": "awscloudformation",
       "service": "Cognito"
-    },
-    "userPoolGroups": {
-      "dependsOn": [
-        {
-          "attributes": [
-            "UserPoolId",
-            "AppClientIDWeb",
-            "AppClientID",
-            "IdentityPoolId"
-          ],
-          "category": "auth",
-          "resourceName": "adasreact1716817517168175"
-        }
-      ],
-      "providerPlugin": "awscloudformation",
-      "service": "Cognito-UserPool-Groups"
-    }
-  },
-  "function": {
-    "adasreact1716817517168175PostConfirmation": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
-    "adasreacte7669d4de7669d4dPostConfirmation": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    }
-  },
-  "hosting": {
-    "amplifyhosting": {
-      "providerPlugin": "awscloudformation",
-      "service": "amplifyhosting",
-      "type": "manual"
     }
   },
   "parameters": {
-    "AMPLIFY_function_adasreact1716817517168175PostConfirmation_GROUP": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "adasreact1716817517168175PostConfirmation"
-        }
-      ]
-    },
-    "AMPLIFY_function_adasreact1716817517168175PostConfirmation_deploymentBucketName": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "adasreact1716817517168175PostConfirmation"
-        }
-      ]
-    },
-    "AMPLIFY_function_adasreact1716817517168175PostConfirmation_s3Key": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "adasreact1716817517168175PostConfirmation"
-        }
-      ]
-    },
-    "AMPLIFY_function_adasreacte7669d4de7669d4dPostConfirmation_GROUP": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "adasreacte7669d4de7669d4dPostConfirmation"
-        }
-      ]
-    },
-    "AMPLIFY_function_adasreacte7669d4de7669d4dPostConfirmation_deploymentBucketName": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "adasreacte7669d4de7669d4dPostConfirmation"
-        }
-      ]
-    },
-    "AMPLIFY_function_adasreacte7669d4de7669d4dPostConfirmation_s3Key": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "adasreacte7669d4de7669d4dPostConfirmation"
-        }
-      ]
-    },
-    "AMPLIFY_hosting_amplifyhosting_appId": {
-      "usedBy": [
-        {
-          "category": "hosting",
-          "resourceName": "amplifyhosting"
-        }
-      ]
-    },
-    "AMPLIFY_hosting_amplifyhosting_type": {
-      "usedBy": [
-        {
-          "category": "hosting",
-          "resourceName": "amplifyhosting"
-        }
-      ]
-    },
-    "AMPLIFY_storage_adasreactb1307bf9_bucketName": {
+    "AMPLIFY_storage_adasreact5a682759_bucketName": {
       "usedBy": [
         {
           "category": "storage",
-          "resourceName": "adasreactb1307bf9"
+          "resourceName": "adasreact5a682759"
         }
       ]
     },
-    "AMPLIFY_storage_adasreactb1307bf9_region": {
+    "AMPLIFY_storage_adasreact5a682759_region": {
       "usedBy": [
         {
           "category": "storage",
-          "resourceName": "adasreactb1307bf9"
+          "resourceName": "adasreact5a682759"
         }
       ]
     }
   },
   "storage": {
-    "adasreactb1307bf9": {
+    "adasreact5a682759": {
       "dependsOn": [],
       "providerPlugin": "awscloudformation",
       "service": "S3",
